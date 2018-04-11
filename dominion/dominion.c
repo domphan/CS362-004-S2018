@@ -648,16 +648,14 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   int i;
   int j;
   int k;
-  int x;
   int index;
   int currentPlayer = whoseTurn(state);
   int nextPlayer = currentPlayer + 1;
 
   int tributeRevealedCards[2] = {-1, -1};
   int temphand[MAX_HAND];// moved above the if statement
-  int drawntreasure=0;
-  int cardDrawn;
-  int z = 0;// this is the counter for the temp hand
+
+
   if (nextPlayer > (state->numPlayers - 1)){
     nextPlayer = 0;
   }
@@ -667,7 +665,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   switch( card )
   {
     case adventurer:
-      adventurerAction(*state);
+      adventurerAction(state, currentPlayer, temphand);
       return 0;
 
     case council_room:
@@ -695,7 +693,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     return 0;
 
     case feast:
-      feastAction(state);
+      feastAction(state, temphand, currentPlayer, choice1, choice2, choice3);
       return 0;
 
     case gardens:
@@ -763,7 +761,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     return 0;
 
     case smithy:
-    smithyAction(state);
+    smithyAction(state, handPos, currentPlayer);
     return 0;
 
     case village:
@@ -840,11 +838,11 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     return 0;
 
     case minion:
-      minionAction(state);
+      minionAction(state, handPos, currentPlayer, choice1, choice2, choice3);
       return 0;
 
     case steward:
-      stewardAction(state);
+      stewardAction(state, currentPlayer, handPos, choice1, choice2, choice3);
       return 0;
 
     case tribute:
@@ -1189,24 +1187,27 @@ int updateCoins(int player, struct gameState *state, int bonus)
   return 0;
 }
 
-void smithyAction(struct gameState *state){
+void smithyAction(struct gameState *state, int handPos, int currentPlayer){
   //+3 Cards
-  for (i = 0; i < 3; i++) {
+  for (int i = 0; i < 3; i++) {
     drawCard(currentPlayer, state);
   }
   //discard card from hand
   discardCard(handPos, currentPlayer, state, 0);
 }
 
-void adventurerAction(struct gameState *state){
-  while(drawntreasure<2){
+void adventurerAction(struct gameState *state, int currentPlayer, int temphand[]){
+  int cardDrawn;
+  int drawnTreasure = 0;
+  int z = 0;// this is the counter for the temp hand
+  while(drawnTreasure<2){
     if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
       shuffle(currentPlayer, state);
     }
     drawCard(currentPlayer, state);
     cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
     if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
-    drawntreasure++;
+    drawnTreasure++;
     else{
       temphand[z]=cardDrawn;
       state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).
@@ -1219,7 +1220,7 @@ void adventurerAction(struct gameState *state){
   }
 }
 
-void stewardAction(struct gameState *state) {
+void stewardAction(struct gameState *state, int currentPlayer, int handPos, int choice1, int choice2, int choice3) {
   if (choice1 == 1)
   {
     //+2 cards
@@ -1242,7 +1243,7 @@ void stewardAction(struct gameState *state) {
   discardCard(handPos, currentPlayer, state, 0);
 }
 
-void minionAction(struct gameState *state) {
+void minionAction(struct gameState *state, int handPos, int currentPlayer, int choice1, int choice2, int choice3) {
   //+1 action
   state->numActions++;
 
@@ -1263,13 +1264,13 @@ void minionAction(struct gameState *state) {
     }
 
     //draw 4
-    for (i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
       drawCard(currentPlayer, state);
     }
 
     //other players discard hand and redraw if hand size > 4
-    for (i = 0; i < state->numPlayers; i++)
+    for (int i = 0; i < state->numPlayers; i++)
     {
       if (i != currentPlayer)
       {
@@ -1282,7 +1283,7 @@ void minionAction(struct gameState *state) {
           }
 
           //draw 4
-          for (j = 0; j < 4; j++)
+          for (int j = 0; j < 4; j++)
           {
             drawCard(i, state);
           }
@@ -1293,10 +1294,10 @@ void minionAction(struct gameState *state) {
   }
 }
 
-void feastAction(struct gameState *state){
+void feastAction(struct gameState *state, int temphand[], int currentPlayer, int choice1, int choice2, int choice3){
   //gain card with cost up to 5
   //Backup hand
-  for (i = 0; i <= state->handCount[currentPlayer]; i++){
+  for (int i = 0; i <= state->handCount[currentPlayer]; i++){
     temphand[i] = state->hand[currentPlayer][i];//Backup card
     state->hand[currentPlayer][i] = -1;//Set to nothing
   }
@@ -1304,7 +1305,7 @@ void feastAction(struct gameState *state){
 
   //Update Coins for Buy
   updateCoins(currentPlayer, state, 5);
-  x = 1;//Condition to loop on
+  int x = 1;//Condition to loop on
   while( x == 1) {//Buy one card
     if (supplyCount(choice1, state) <= 0){
       if (DEBUG)
@@ -1338,7 +1339,7 @@ void feastAction(struct gameState *state){
   }
 
   //Reset Hand
-  for (i = 0; i <= state->handCount[currentPlayer]; i++){
+  for (int i = 0; i <= state->handCount[currentPlayer]; i++){
     state->hand[currentPlayer][i] = temphand[i];
     temphand[i] = -1;
   }
