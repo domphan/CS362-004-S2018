@@ -1189,7 +1189,7 @@ int updateCoins(int player, struct gameState *state, int bonus)
 
 void smithyAction(struct gameState *state, int handPos, int currentPlayer){
   //+3 Cards
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i <= 3; i++) { // BUG: added = to <
     drawCard(currentPlayer, state);
   }
   //discard card from hand
@@ -1200,7 +1200,7 @@ void adventurerAction(struct gameState *state, int currentPlayer, int temphand[]
   int cardDrawn;
   int drawnTreasure = 0;
   int z = 0;// this is the counter for the temp hand
-  while(drawnTreasure<2){
+  while(drawnTreasure<= 2){ // BUG: added = to <
     if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
       shuffle(currentPlayer, state);
     }
@@ -1230,7 +1230,7 @@ void stewardAction(struct gameState *state, int currentPlayer, int handPos, int 
   else if (choice1 == 2)
   {
     //+2 coins
-    state->coins = state->coins + 2;
+    state->coins = /*state->coins*/ + 2; //BUG: removed state->coins
   }
   else
   {
@@ -1297,7 +1297,7 @@ void minionAction(struct gameState *state, int handPos, int currentPlayer, int c
 void feastAction(struct gameState *state, int temphand[], int currentPlayer, int choice1, int choice2, int choice3){
   //gain card with cost up to 5
   //Backup hand
-  for (int i = 0; i <= state->handCount[currentPlayer]; i++){
+  for (int i = 0; i < state->handCount[currentPlayer]; i++){ // BUG: removed = from >=
     temphand[i] = state->hand[currentPlayer][i];//Backup card
     state->hand[currentPlayer][i] = -1;//Set to nothing
   }
