@@ -668,6 +668,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   {
     case adventurer:
       adventurerAction();
+      return 0;
 
     case council_room:
     //+4 Cards
@@ -812,6 +813,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
     case smithy:
     smithyAction();
+    return 0;
 
     case village:
     //+1 Card
@@ -938,26 +940,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     return 0;
 
     case steward:
-    if (choice1 == 1)
-    {
-      //+2 cards
-      drawCard(currentPlayer, state);
-      drawCard(currentPlayer, state);
-    }
-    else if (choice1 == 2)
-    {
-      //+2 coins
-      state->coins = state->coins + 2;
-    }
-    else
-    {
-      //trash 2 cards in hand
-      discardCard(choice2, currentPlayer, state, 1);
-      discardCard(choice3, currentPlayer, state, 1);
-    }
-
-    //discard card from hand
-    discardCard(handPos, currentPlayer, state, 0);
+    stewardAction();
     return 0;
 
     case tribute:
@@ -1302,17 +1285,16 @@ int updateCoins(int player, struct gameState *state, int bonus)
   return 0;
 }
 
-int smithyAction(){
+void smithyAction(){
   //+3 Cards
   for (i = 0; i < 3; i++) {
     drawCard(currentPlayer, state);
   }
   //discard card from hand
   discardCard(handPos, currentPlayer, state, 0);
-  return 0;
 }
 
-int adventurerAction(){
+void adventurerAction(){
   while(drawntreasure<2){
     if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
       shuffle(currentPlayer, state);
@@ -1331,6 +1313,28 @@ int adventurerAction(){
     state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
     z=z-1;
   }
-  return 0;
+}
+
+void stewardAction() {
+  if (choice1 == 1)
+  {
+    //+2 cards
+    drawCard(currentPlayer, state);
+    drawCard(currentPlayer, state);
+  }
+  else if (choice1 == 2)
+  {
+    //+2 coins
+    state->coins = state->coins + 2;
+  }
+  else
+  {
+    //trash 2 cards in hand
+    discardCard(choice2, currentPlayer, state, 1);
+    discardCard(choice3, currentPlayer, state, 1);
+  }
+
+  //discard card from hand
+  discardCard(handPos, currentPlayer, state, 0);
 }
 //end of dominion.c
