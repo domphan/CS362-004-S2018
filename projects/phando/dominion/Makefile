@@ -52,7 +52,12 @@ unittestresults.out: unittest1.c dominion.c rngs.c
 	gcov dominion.c >> unittestresults.out
 	cat dominion.c.gcov >> unittestresults.out
 
-	
+	echo "unittest4.c:" >> unittestresults.out
+	gcc -o unittest4 -g  unittest4.c dominion.c rngs.c $(CFLAGS)
+	./unittest4 >> unittestresults.out
+	gcov unittest4.c >> unittestresults.out
+	gcov dominion.c >> unittestresults.out
+	cat dominion.c.gcov >> unittestresults.out
 
 
 

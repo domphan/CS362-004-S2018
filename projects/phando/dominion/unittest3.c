@@ -16,8 +16,8 @@ void asserttrue(int a, int b)
   }
   else
   {
-    printf("\t\t\tAssert failed, total fails: %d\n", totalFail);
     totalFail++;
+    printf("\t\t\tAssert failed, total fails: %d\n", totalFail);
   }
 }
 
