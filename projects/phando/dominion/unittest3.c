@@ -7,57 +7,99 @@
 #include <stdio.h>
 #include <assert.h>
 #include "rngs.h"
-
 int totalFail = 0;
-
 void asserttrue(int a, int b)
 {
   if (a == b)
   {
-    printf("Assert Passed\n");
+    printf("\t\t\tAssert Passed\n");
   }
   else
   {
-    printf("Assert failed, total fails: %d\n", totalFail);
+    printf("\t\t\tAssert failed, total fails: %d\n", totalFail);
     totalFail++;
   }
 }
 
 int main()
 {
-  int i;
   int seed = 1000;
-  int numPlayer = 2;
+  int numPlayer = 4;
   int p, r, handCount;
-  p = 0;
-  int testCard;
+  int successFlag;
+  int initialCount;
+  int supplyCounter;
   // select kingdom cards
   int k[10] = {adventurer, council_room, feast, gardens, mine,
                remodel, smithy, village, baron, great_hall};
   struct gameState state;
-  int testHand[MAX_HAND] = {adventurer, copper, silver, gold, great_hall};
   handCount = 5;
 
   /* Testing code goes here*/
 
   /*
-  * The handCard() function returns a card at a certain position from the current player's hand.
-  * To test this, simply add 5 unique cards to the hand and verify that the cards are in the right 
-  * position.
-  * Doesn't need to be tested for invalid inputs (out of range) because it's only used to discard / get
-  * the card that will be played, so handPos will always be valid.
+  * gainCard uses supplyPos, state, toFlag, and player
+  * We must test gainCard with multiple players
+  * gainCard takes a card from the supply pile and adds it to the discard pile
+  * We must check that supply from supplypos is decremented and the player's discard pile
+  * is incremented.
   */
-  memset(&state, 23, sizeof(struct gameState));
-  r = initializeGame(numPlayer, k, seed, &state);
-  state.handCount[0] = handCount;
-  memcpy(state.hand[0], testHand, sizeof(int) * handCount);
-  printf("Testing handCard()\n");
-  for (i = 0; i < 5; i++)
-  {
-    testCard = handCard(i, &state);
-    printf("Comparing result: %d to expected: %d\n", testCard, testHand[i]);
-    asserttrue(testCard, testHand[i]);
+  for (p = 0; p < numPlayer; p++) {
+    memset(&state, 23, sizeof(struct gameState));
+    r = initializeGame(numPlayer, k, seed, &state);
+    // Check discard pile and check that it was removed from supply
+    printf("Testing gainCard() to discard pile:\n");
+    initialCount = state.discardCount[p];
+    supplyCounter = supplyCount(feast, &state);
+    successFlag = gainCard(feast, &state, 0, p);
+    printf("\tThis indicates that the function returned a correct value for success:\n");
+    asserttrue(successFlag, 0);
+    printf("\tThis indicates that the supply card was found in the discard pile:\n");
+    printf("\t\tExpected: %d, result: %d\n", feast, state.discard[p][initialCount]);
+    asserttrue(state.discard[p][initialCount], feast);
+    printf("\tThis indicates that the supply count has decremented meaning a card has been taken out:\n");
+    printf("\t\tExpected: %d, result: %d\n", supplyCounter-1, supplyCount(feast, &state));
+    asserttrue(supplyCount(feast, &state), supplyCounter - 1);
+
+    // Check deck and check that it was removed from supply
+    printf("Testing gainCard() to deck pile:\n");
+    initialCount = state.deckCount[p];
+    supplyCounter = supplyCount(gardens, &state);
+    successFlag = gainCard(gardens, &state, 1, p);
+    printf("\tThis indicates that the function returned a correct value for success:\n");
+    asserttrue(successFlag, 0);
+    printf("\tThis indicates that the supply card was found in the deck pile:\n");
+    printf("\t\tExpected: %d, result: %d\n", gardens, state.deck[p][initialCount]);
+    asserttrue(state.deck[p][initialCount], gardens);
+    printf("\tThis indicates that the supply count has decremented meaning a card has been taken out:\n");
+    printf("\t\tExpected: %d, result: %d\n", supplyCounter - 1, supplyCount(gardens, &state));
+    asserttrue(supplyCount(gardens, &state), supplyCounter - 1);
+
+    // Check hand and check that it was removed from supply
+    printf("Testing gainCard() to hand:\n");
+    initialCount = state.handCount[p];
+    supplyCounter = supplyCount(baron, &state);
+    successFlag = gainCard(baron, &state, 2, p);
+    printf("\tThis indicates that the function returned a correct value for success:\n");
+    asserttrue(successFlag, 0);
+    printf("\tThis indicates that the supply card was found in the hand:\n");
+    printf("\t\tExpected: %d, result: %d\n", baron, state.hand[p][initialCount]);
+    asserttrue(state.hand[p][initialCount], baron);
+    printf("\tThis indicates that the supply count has decremented meaning a card has been taken out:\n");
+    printf("\t\tExpected: %d, result: %d\n", supplyCounter - 1, supplyCount(baron, &state));
+    asserttrue(supplyCount(baron, &state), supplyCounter - 1);
+
+    // Check what happens during invalid value (supply is out or name is wrong)
+    successFlag = gainCard(-1000, &state, 0, p);
+    printf("\tThis indicates that the function handled an error situation *invalid value*:\n");
+    asserttrue(successFlag, -1); // testing invalid value
+    state.supplyCount[baron] = 0;
+    successFlag = gainCard(baron, &state, 0, p);
+    printf("\tThis indicates that the function handled and error situation *empty supply pile*:\n");
+    asserttrue(successFlag, -1); // testing a supply pile that should be empty.
   }
+
+
 
   if (totalFail == 0)
   {

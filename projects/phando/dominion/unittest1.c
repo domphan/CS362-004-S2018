@@ -7,18 +7,19 @@
 #include <stdio.h>
 #include <assert.h>
 #include "rngs.h"
-
 int totalFail = 0;
-
-void asserttrue(int a, int b) {
-  if (a == b) {
-    printf("Assert Passed\n");
-  } else {
-    printf("Assert failed, total fails: %d\n", totalFail);
+void asserttrue(int a, int b)
+{
+  if (a == b)
+  {
+    printf("\t\t\tAssert Passed\n");
+  }
+  else
+  {
+    printf("\t\t\tAssert failed, total fails: %d\n", totalFail);
     totalFail++;
   }
 }
-
 int main(){
   int seed = 1000;
   int numPlayer = 4;
@@ -42,17 +43,17 @@ int main(){
   for (p = 2; p <= numPlayer; p++){
     memset(&G, 23, sizeof(struct gameState)); // clear game state
     r = initializeGame(numPlayer, k, seed, &G); // initialize new game
-    printf("Testing supplyCount() with %d players\n", numPlayer);
+    printf("\tTesting supplyCount() with %d players\n", p);
     // Check resource cards
-    printf("Checking copper, silver, gold\n");
+    printf("\t\tChecking copper, silver, gold\n");
     asserttrue(supplyCount(copper, &G), (60 - (7*numPlayer)));
     asserttrue(supplyCount(silver, &G), 40);
     asserttrue(supplyCount(gold, &G), 30);
-    printf("Checking curse cards\n");
+    printf("\t\tChecking curse cards\n");
     asserttrue(supplyCount(curse, &G), (numPlayer-1) * 10);
-    printf("Checking a kingdom card\n");
+    printf("\t\tChecking a kingdom card\n");
     asserttrue(supplyCount(feast, &G), 10);
-    printf("Checking a victory card\n");
+    printf("\t\tChecking a victory card\n");
     if (numPlayer == 2) {
 
       asserttrue(supplyCount(gardens, &G), 8);

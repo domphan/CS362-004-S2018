@@ -1345,4 +1345,5 @@ void feastAction(struct gameState *state, int temphand[], int currentPlayer, int
   }
   //Reset Hand
 }
+
 //end of dominion.c

@@ -9,17 +9,16 @@
 #include "rngs.h"
 
 int totalFail = 0;
-
 void asserttrue(int a, int b)
 {
   if (a == b)
   {
-      printf("Assert Passed\n");
+    printf("\t\t\tAssert Passed\n");
   }
   else
   {
-      printf("Assert failed, total fails: %d\n", totalFail);
-      totalFail++;
+    printf("\t\t\tAssert failed, total fails: %d\n", totalFail);
+    totalFail++;
   }
 }
 
@@ -54,7 +53,8 @@ int main()
   printf("Testing handCard()\n");
   for (i = 0; i < 5; i++) {
     testCard = handCard(i, &state);
-    printf("Comparing result: %d to expected: %d\n", testCard, testHand[i]);
+    printf("\tChecking card %d:\n", i);
+    printf("\t\tComparing result: %d to expected: %d\n", testCard, testHand[i]);
     asserttrue(testCard, testHand[i]);
   }
  
