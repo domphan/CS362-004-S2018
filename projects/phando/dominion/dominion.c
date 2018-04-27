@@ -207,7 +207,7 @@ int shuffle(int player, struct gameState *state) {
   int i;
 
   if (state->deckCount[player] < 1)
-  return -1;
+    return -1;
   qsort ((void*)(state->deck[player]), state->deckCount[player], sizeof(int), compare);
   /* SORT CARDS IN DECK TO ENSURE DETERMINISM! */
 
@@ -1200,7 +1200,7 @@ void adventurerAction(struct gameState *state, int currentPlayer, int temphand[]
   int cardDrawn;
   int drawnTreasure = 0;
   int z = 0;// this is the counter for the temp hand
-  while(drawnTreasure<= 2){ // BUG: added = to <
+  while(drawnTreasure <= 2){ // BUG: added = to <
     if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
       shuffle(currentPlayer, state);
     }

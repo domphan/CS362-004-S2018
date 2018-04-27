@@ -59,7 +59,26 @@ unittestresults.out: unittest1.c dominion.c rngs.c
 	gcov dominion.c >> unittestresults.out
 	cat dominion.c.gcov >> unittestresults.out
 
+	echo "cardtest1.c:" >> unittestresults.out
+	gcc -o cardtest1 -g  cardtest1.c dominion.c rngs.c $(CFLAGS)
+	./cardtest1 >> unittestresults.out
+	gcov cardtest1.c >> unittestresults.out
+	gcov dominion.c >> unittestresults.out
+	cat dominion.c.gcov >> unittestresults.out
+		
+	echo "cardtest2.c:" >> unittestresults.out
+	gcc -o cardtest2 -g  cardtest2.c dominion.c rngs.c $(CFLAGS)
+	./cardtest2 >> unittestresults.out
+	gcov cardtest2.c >> unittestresults.out
+	gcov dominion.c >> unittestresults.out
+	cat dominion.c.gcov >> unittestresults.out
 
+	echo "cardtest3.c:" >> unittestresults.out
+	gcc -o cardtest3 -g  cardtest3.c dominion.c rngs.c $(CFLAGS)
+	./cardtest3 >> unittestresults.out
+	gcov cardtest3.c >> unittestresults.out
+	gcov dominion.c >> unittestresults.out
+	cat dominion.c.gcov >> unittestresults.out
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
