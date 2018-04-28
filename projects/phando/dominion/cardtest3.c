@@ -22,6 +22,8 @@ void asserttrue(int a, int b)
 }
 int main()
 {
+  int i, j;
+  int p = 0;
   int handPos = 0;
   int choice1 = 0;
   int choice2 = 0;
@@ -40,6 +42,7 @@ int main()
   int k[10] = {adventurer, council_room, feast, gardens, mine,
                remodel, smithy, village, baron, great_hall};
   struct gameState state;
+  struct gameState otherPlayersState;
   /*
   * The village kingdom card allows the player to draw one card from the deck and gain two 
   * actions.
@@ -50,6 +53,16 @@ int main()
   memset(&state, 23, sizeof(struct gameState));
   r = initializeGame(numPlayer, k, seed, &state);
   printf("Testing the village card:\n");
+
+  memcpy(otherPlayersState.hand, state.hand, sizeof(int) * MAX_HAND * MAX_PLAYERS);
+  memcpy(otherPlayersState.deck, state.deck, sizeof(int) * MAX_DECK * MAX_PLAYERS);
+  memcpy(otherPlayersState.discard, state.discard, sizeof(int) * MAX_DECK * MAX_PLAYERS);
+  for (i = 0; i < numPlayer; i++)
+  {
+    otherPlayersState.handCount[i] = state.handCount[i];
+    otherPlayersState.deckCount[i] = state.deckCount[i];
+    otherPlayersState.discardCount[i] = state.discardCount[i];
+  }
 
   // Testing with a regular deck
   state.hand[0][0] = village;
@@ -67,7 +80,34 @@ int main()
   printf("\t\tChecking that village was put in the played pile:\n");
   printf("\t\t\tExpected: %d, result: %d\n", village, state.playedCards[playedCounter]);
   asserttrue(village, state.playedCards[playedCounter]);
-  
+
+  // Check that other player's states were not mutated
+  printf("\t\tChecking that other player's states were not mutated:\n");
+  for (i = 0; i < numPlayer; i++)
+  {
+    if (i != p)
+    {
+      printf("\t\t\tChecking player %d's hand:\n", i);
+      for (j = 0; j < otherPlayersState.handCount[i]; j++)
+      {
+        printf("\t\t\tExpected: %d, result: %d\n", otherPlayersState.hand[i][j], state.hand[i][j]);
+        asserttrue(state.hand[i][j], otherPlayersState.hand[i][j]);
+      }
+      printf("\t\t\tChecking player %d's deck:\n", i);
+      for (j = 0; j < otherPlayersState.deckCount[i]; j++)
+      {
+        printf("\t\t\tExpected: %d, result: %d\n", otherPlayersState.deck[i][j], state.deck[i][j]);
+        asserttrue(otherPlayersState.deck[i][j], state.deck[i][j]);
+      }
+      printf("\t\t\tChecking player %d's discard:\n", i);
+      for (j = 0; j < otherPlayersState.discardCount[i]; j++)
+      {
+        printf("\t\t\tExpected: %d, Result: %d\n", otherPlayersState.discard[i][j], state.discard[i][j]);
+        asserttrue(otherPlayersState.discard[i][j], state.discard[i][j]);
+      }
+    }
+  }
+
   // Testing with an empty deck
   memcpy(state.discard[0], discardTestPile, sizeof(int) * 10);
   state.discardCount[0] = 10;

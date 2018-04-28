@@ -701,24 +701,27 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
     case mine:
     j = state->hand[currentPlayer][choice1];  //store card we will trash
-
+    //printf("***This is the card we will trash: %d\n", j);
     if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
     {
+      // printf("***choice1 is not valid\n");
       return -1;
     }
 
     if (choice2 > treasure_map || choice2 < curse)
     {
+      //printf("***choice2 is not valid\n");
       return -1;
     }
 
     if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
     {
+      //printf("***cost difference is not valid %d AND %d\n", getCost(state->hand[currentPlayer][choice1]) + 3, getCost(choice2));
       return -1;
     }
-
+    //printf("*** The card I am trying to gain: %d\n", choice2);
     gainCard(choice2, state, 2, currentPlayer);
-
+    //printf("*** What i am discarding: %d\n", handPos);
     //discard card from hand
     discardCard(handPos, currentPlayer, state, 0);
 
@@ -727,6 +730,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     {
       if (state->hand[currentPlayer][i] == j)
       {
+        //printf("***Tryna discard this trashed card: %d\n", j);
         discardCard(i, currentPlayer, state, 0);
         break;
       }

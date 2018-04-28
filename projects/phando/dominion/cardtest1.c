@@ -22,6 +22,7 @@ void asserttrue(int a, int b)
 }
 int main()
 {
+  int i, j;
   int handPos = 0;
   int choice1 = 0;
   int choice2 = 0;
@@ -36,8 +37,7 @@ int main()
   int k[10] = {adventurer, council_room, feast, gardens, mine,
                remodel, smithy, village, baron, great_hall};
   struct gameState state;
-  
-
+  struct gameState otherPlayersState;
   /*
   * The smithy kingdom card is supposed to draw three cards. This means that +3 are added to the current player's
   * hand. This also means that the smithy card must be removed from the current player's hand. We will test both
@@ -46,8 +46,18 @@ int main()
   memset(&state, 23, sizeof(struct gameState));
   r = initializeGame(numPlayer, k, seed, &state);
   printf("Testing the smithy card:\n");
+
   // Test smithy for each player. 
   for (p = 0; p < numPlayer; p++) {
+    // Store other player's gamestate to test if they are mutated.
+    memcpy(otherPlayersState.hand, state.hand, sizeof(int) * MAX_HAND * MAX_PLAYERS);
+    memcpy(otherPlayersState.deck, state.deck, sizeof(int) * MAX_DECK * MAX_PLAYERS);
+    memcpy(otherPlayersState.discard, state.discard, sizeof(int) * MAX_DECK * MAX_PLAYERS);
+    for (i = 0; i < numPlayer; i++) {
+      otherPlayersState.handCount[i] = state.handCount[i];
+      otherPlayersState.deckCount[i] = state.deckCount[i];
+      otherPlayersState.discardCount[i] = state.discardCount[i];
+    }
     state.hand[p][handPos] = smithy;
     currHandCount = state.handCount[p];
     printf("\tTesting for PLAYER %d:\n", p);
@@ -63,6 +73,27 @@ int main()
     printf("\t\tChecking that smithy was added to the played pile:\n");
     printf("\t\t\tExpected: %d, result: %d\n", smithy, state.playedCards[playedCounter]);
     asserttrue(state.playedCards[playedCounter], smithy);
+    // Check that other player's states were not mutated
+    printf("\t\tChecking that other player's states were not mutated:\n");
+    for (i = 0; i < numPlayer; i++) {
+      if (i != p) {
+        printf("\t\t\tChecking player %d's hand:\n", i);
+        for (j = 0; j < otherPlayersState.handCount[i]; j++) {
+          printf("\t\t\tExpected: %d, result: %d\n", otherPlayersState.hand[i][j], state.hand[i][j]);
+          asserttrue(state.hand[i][j], otherPlayersState.hand[i][j]);
+        }
+        printf("\t\t\tChecking player %d's deck:\n", i);
+        for (j = 0; j < otherPlayersState.deckCount[i]; j++) {
+          printf("\t\t\tExpected: %d, result: %d\n", otherPlayersState.deck[i][j], state.deck[i][j]);
+          asserttrue(otherPlayersState.deck[i][j], state.deck[i][j]);
+        }
+        printf("\t\t\tChecking player %d's discard:\n", i);
+        for (j = 0; j < otherPlayersState.discardCount[i]; j++) {
+          printf("\t\t\tExpected: %d, Result: %d\n", otherPlayersState.discard[i][j], state.discard[i][j]);
+          asserttrue(otherPlayersState.discard[i][j], state.discard[i][j]);
+        }
+      }
+    }
     endTurn(&state);
   }
   if (totalFail == 0)
