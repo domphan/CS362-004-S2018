@@ -11,62 +11,63 @@
         -:    6:char inputChar()
         -:    7:{
         -:    8:  char retChar;
-   655750:    9:  const int min = 32; //space
-   327875:   10:  const int max = 126; //~ (tilda)
-   327875:   11:  retChar = (rand() % (max - min + 1)) + min;
-   327875:   12:  return retChar;
+  4753730:    9:  const int min = 32; //space
+  2376865:   10:  const int max = 126; //~ (tilda)
+  2376865:   11:  retChar = (rand() % (max - min + 1)) + min;
+  2376865:   12:  return retChar;
         -:   13:}
         -:   14:
         -:   15:char *inputString()
         -:   16:{
         -:   17:  int i;
         -:   18:  static char retString[5];
-   655750:   19:  const int min = 97;
-   327875:   20:  const int max = 122;
-  3278750:   21:  for (i = 1; i < 5; i++) {
-  1311500:   22:    retString[i] = (rand() % (max - min + 1) + min);
-  1311500:   23:  }
-   327875:   24:  retString[0] = 'r';
-   327875:   25:  return retString;
-        -:   26:}
-        -:   27:
-        -:   28:void testme()
-        -:   29:{
-        2:   30:  int tcCount = 0;
-        -:   31:  char *s;
-        -:   32:  char c;
-        1:   33:  int state = 0;
-   327875:   34:  while (1)
-        -:   35:  {
-   327875:   36:    tcCount++;
-   327875:   37:    c = inputChar();
-   327875:   38:    s = inputString();
-   327875:   39:    printf("Iteration %d: c = %c, s = %s, state = %d\n", tcCount, c, s, state);
-        -:   40:
-   331271:   41:    if (c == '[' && state == 0) state = 1;
-   331297:   42:    if (c == '(' && state == 1) state = 2;
-   331420:   43:    if (c == '{' && state == 2) state = 3;
-   331273:   44:    if (c == ' '&& state == 3) state = 4;
-   331274:   45:    if (c == 'a' && state == 4) state = 5;
-   331253:   46:    if (c == 'x' && state == 5) state = 6;
-   331332:   47:    if (c == '}' && state == 6) state = 7;
-   331237:   48:    if (c == ')' && state == 7) state = 8;
-   331264:   49:    if (c == ']' && state == 8) state = 9;
-   655751:   50:    if (s[0] == 'r' && s[1] == 'e'
-   341059:   51:       && s[2] == 's' && s[3] == 'e'
-      449:   52:       && s[4] == 't' && s[5] == '\0'
-        2:   53:       && state == 9)
-        -:   54:    {
-        1:   55:      printf("error ");
-        1:   56:      exit(200);
-        -:   57:    }
-        -:   58:  }
-    #####:   59:}
-        -:   60:
+  4753730:   19:  const int min = 97;
+  2376865:   20:  const int max = 122;
+ 23768650:   21:  for (i = 1; i < 5; i++) {
+  9507460:   22:    retString[i] = (rand() % (max - min + 1) + min);
+  9507460:   23:  }
+        -:   24:  // choosing between q or r
+  2376865:   25:  retString[0] = (rand() % (114 - 113 + 1) + 113);
+  2376865:   26:  return retString;
+        -:   27:}
+        -:   28:
+        -:   29:void testme()
+        -:   30:{
+        2:   31:  int tcCount = 0;
+        -:   32:  char *s;
+        -:   33:  char c;
+        1:   34:  int state = 0;
+  2376865:   35:  while (1)
+        -:   36:  {
+  2376865:   37:    tcCount++;
+  2376865:   38:    c = inputChar();
+  2376865:   39:    s = inputString();
+  2376865:   40:    printf("Iteration %d: c = %c, s = %s, state = %d\n", tcCount, c, s, state);
+        -:   41:
+  2401736:   42:    if (c == '[' && state == 0) state = 1;
+  2401873:   43:    if (c == '(' && state == 1) state = 2;
+  2401853:   44:    if (c == '{' && state == 2) state = 3;
+  2402247:   45:    if (c == ' '&& state == 3) state = 4;
+  2401751:   46:    if (c == 'a' && state == 4) state = 5;
+  2401715:   47:    if (c == 'x' && state == 5) state = 6;
+  2401759:   48:    if (c == '}' && state == 6) state = 7;
+  2401680:   49:    if (c == ')' && state == 7) state = 8;
+  2401670:   50:    if (c == ']' && state == 8) state = 9;
+  3565189:   51:    if (s[0] == 'r' && s[1] == 'e'
+  1235636:   52:       && s[2] == 's' && s[3] == 'e'
+     1744:   53:       && s[4] == 't' && s[5] == '\0'
+        2:   54:       && state == 9)
+        -:   55:    {
+        1:   56:      printf("error ");
+        1:   57:      exit(200);
+        -:   58:    }
+        -:   59:  }
+    #####:   60:}
         -:   61:
-        -:   62:int main(int argc, char *argv[])
-        -:   63:{
-        1:   64:    srand(time(NULL));
-        1:   65:    testme();
-        1:   66:    return 0;
-        -:   67:}
+        -:   62:
+        -:   63:int main(int argc, char *argv[])
+        -:   64:{
+        1:   65:    srand(time(NULL));
+        1:   66:    testme();
+        1:   67:    return 0;
+        -:   68:}

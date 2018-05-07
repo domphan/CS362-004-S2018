@@ -2,8 +2,7 @@ CFLAGS = -fpic -coverage -lm -Wall
 
 all:
 	gcc -o quiz testme.c $(CFLAGS)
-
-test:
+	-./quiz
 	gcov testme.c
 	
 clean:
