@@ -55,7 +55,6 @@ int main(){
     asserttrue(supplyCount(feast, &G), 10);
     printf("\t\tChecking a victory card\n");
     if (numPlayer == 2) {
-
       asserttrue(supplyCount(gardens, &G), 8);
     }
     else {
