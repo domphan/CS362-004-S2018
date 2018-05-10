@@ -30,22 +30,15 @@ void initializeFailStateSmithy(struct failStateSmithy* fail)
 }
 
 void testOracleSmithy(struct gameState* pre, struct failStateSmithy* fail, int player) {
-    printf("enter test\n");
     struct gameState previousCopy;
-    printf("prevcopy\n");
     int choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0, handPos = 0;
     previousCopy = *pre;
-    printf("enter card effect\n");
     cardEffect(smithy, choice1, choice2, choice3, pre, handPos, &bonus);
-    printf("exit card effect\n");
     // Test that three cards were added to the hand and smithy was removed
-    printf("ceheckhand\n");
     if (previousCopy.handCount[player] + 2 != pre->handCount[player]) {
         fail->handCountFail++;
     }
-    printf("ceheckhand\n");
     // Test that smithy was added to the played pile
-    printf("cehecplayed\n");
     if (pre->playedCardCount != previousCopy.playedCardCount + 1) {
         fail->playedCardCountFail++;
     } else {
@@ -53,13 +46,10 @@ void testOracleSmithy(struct gameState* pre, struct failStateSmithy* fail, int p
             fail->playedCardFail++;
         }
     }
-    printf("ceheckhand\n");
-    printf("checkdeck\n");
     // Test that the deckCount is the 3 less.
     if (pre->deckCount[player] != previousCopy.deckCount[player] - 3) {
         fail->deckFail++;
     }
-    printf("checkdeck\n");
 }
 
 int main(){
