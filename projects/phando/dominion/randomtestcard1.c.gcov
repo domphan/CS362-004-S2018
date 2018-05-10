@@ -1,0 +1,111 @@
+        -:    0:Source:randomtestcard1.c
+        -:    0:Graph:randomtestcard1.gcno
+        -:    0:Data:randomtestcard1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// Testing the adventurer card with randomly generated inputs
+        -:    2:#define SEED 35
+        -:    3:#define TEST_ITERATIONS 15000
+        -:    4:#define MIN_DECK_FOR_ADVENTURER 3
+        -:    5:#include "dominion.h"
+        -:    6:#include "dominion_helpers.h"
+        -:    7:#include "rngs.h"
+        -:    8:#include <stdio.h>
+        -:    9:#include <math.h>
+        -:   10:#include <stdlib.h>
+        -:   11:#include <time.h>
+        -:   12:#include <string.h>
+        -:   13:
+        -:   14:struct failState {
+        -:   15:    int handTreasureFail;
+        -:   16:    int handCountFail;
+        -:   17:    int deckFail;
+        -:   18:    int playedCardFail;
+        -:   19:};
+        -:   20:
+        -:   21:void initializeFailState(struct failState* fail) {
+        1:   22:    fail->handTreasureFail = 0;
+        1:   23:    fail->handCountFail = 0;
+        1:   24:    fail->deckFail = 0;
+        1:   25:    fail->playedCardFail = 0;
+        1:   26:}
+        -:   27:
+        -:   28:int totalFail = 0;
+        -:   29:
+        -:   30:void testOracleAdventurer(struct gameState* pre, struct failState* fail, int player) {
+        -:   31:    int i;
+    15000:   32:    int treasureCount = 0;
+        -:   33:    struct gameState previousCopy;
+    15000:   34:    int choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0, handPos = 0;
+    15000:   35:    previousCopy = *pre; // I know this isn't how to do a deep copy of a struct, but I only need the counts and not arrays.
+    15000:   36:    cardEffect(adventurer, choice1, choice2, choice3, pre, handPos, &bonus);
+        -:   37:    // Test that two treasures were actually added to the hand and that nothing else was added.
+        -:   38:
+        -:   39:
+    15000:   40:    if (previousCopy.handCount[player] != pre->handCount[player] - 2) {
+    14935:   41:        fail->handCountFail++;
+    14935:   42:    }
+   149854:   43:    for (i = previousCopy.handCount[player] - 1; i < pre->handCount[player]; i++) {
+   135213:   44:        if (pre->hand[player][i] == copper || pre->hand[player][i] == silver || pre->hand[player][i] == gold) {
+    44927:   45:            treasureCount++;
+    44927:   46:        }
+    59927:   47:    }
+    15000:   48:    if (treasureCount != 2) {
+    14935:   49:        fail->handTreasureFail++;
+    14935:   50:    }
+        -:   51:
+        -:   52:    // Check that the deck has the same number of cards minus two + what was discarded.
+    15000:   53:    if (previousCopy.deckCount[player] != pre->deckCount[player] - 2 + pre->discardCount[player]) {
+    15000:   54:        fail->deckFail++;
+    15000:   55:    }
+        -:   56:
+        -:   57:
+        -:   58:    // Test that the adventurer card goes into the played pile.
+    15000:   59:    if (pre->playedCardCount != 1) {
+    15000:   60:        fail->playedCardFail++;
+    15000:   61:    }
+    15000:   62:}
+        -:   63:
+        -:   64:int main(){
+        -:   65:    int i, p, k;
+        -:   66:    struct gameState testGame;
+        -:   67:    struct failState failures;
+        1:   68:    initializeFailState(&failures);
+        1:   69:    int treasureOptions[3] = {copper, gold, silver};
+        1:   70:    srand(SEED);
+    30002:   71:    for (k = 0; k < TEST_ITERATIONS; k++) {
+    15000:   72:        memset(&testGame, 23, sizeof(struct gameState));
+        -:   73:        // Set up preconditions
+        -:   74:        // randomize gamestate
+789030000:   75:        for (i = 0; i < sizeof(struct gameState); i++) {
+394500000:   76:            ((char*)&testGame)[i] = (rand() % (255 + 1 - 0) + 0);
+394500000:   77:        }
+        -:   78:        // select random player
+    15000:   79:        p = (rand() % (MAX_PLAYERS-1 + 1 - 1) + 1);
+        -:   80:
+    15000:   81:        testGame.discardCount[p] = 0;
+    15000:   82:        testGame.handCount[p] = (rand() % (MAX_HAND + 1));
+    15000:   83:        testGame.whoseTurn = p;
+        -:   84:
+        -:   85:        // limit number of cards in deck for player
+    15000:   86:        testGame.deckCount[p] = (rand() % (MAX_DECK + 1 - MIN_DECK_FOR_ADVENTURER) + MIN_DECK_FOR_ADVENTURER);
+        -:   87:
+        -:   88:        // How many treasure we're testing for the deck.
+    15000:   89:        int treasures = (rand() % (testGame.deckCount[p] + 1 - MIN_DECK_FOR_ADVENTURER) + MIN_DECK_FOR_ADVENTURER);
+        -:   90:        // place randomly in deck
+  3875512:   91:        for (i = 0; i < treasures; i++) {
+  1922756:   92:            testGame.deck[p][rand() % ((testGame.deckCount[p]-1 + 1 - 0)) + 0] = treasureOptions[rand() % (2 + 1 - 0)+ 0];
+  1922756:   93:        }
+    15000:   94:        testOracleAdventurer(&testGame, &failures, p);
+        -:   95:        
+    15000:   96:    }
+        -:   97:
+        -:   98:    // Print out error totals.
+        1:   99:    printf("Testing the adventurer card **%d** times\n", TEST_ITERATIONS);
+        1:  100:    printf("\tTesting that two cards were actually added to the hand:\n\t\tNumber of failures: %d\n", failures.handCountFail);
+        1:  101:    printf("\tTesting that the cards added were actually two treasures:\n\t\tNumber of failures: %d\n", failures.handTreasureFail);
+        1:  102:    printf("\tTesting that the deck has the same number of cards minus the treasures and those discarded:\n\t\tNumber of failures: %d\n", failures.deckFail);
+        1:  103:    printf("\tTesting that the adventurer card was put into the played pile:\n\t\tNumber of failures: %d\n", failures.playedCardFail);
+        -:  104:
+        -:  105:
+        1:  106:}
