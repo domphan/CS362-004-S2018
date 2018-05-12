@@ -90,17 +90,23 @@ unittestresults.out: unittest1.c dominion.c rngs.c
 
 randomtests.out:
 
-	# gcc -o randomtestcard1 -g randomtestcard1.c dominion.c rngs.c $(CFLAGS)
-	# ./randomtestcard1 >> randomtestcard1.out
-	# gcov randomtestcard1.c >> randomtestcard1.out
-	# gcov -b dominion.c >> randomtestcard1.out
-	# cat dominion.c.gcov >> randomtestcard1.out
+	gcc -o randomtestcard1 -g randomtestcard1.c dominion.c rngs.c $(CFLAGS)
+	./randomtestcard1 >> randomtestcard1.out
+	gcov randomtestcard1.c >> randomtestcard1.out
+	gcov -b dominion.c >> randomtestcard1.out
+	cat dominion.c.gcov >> randomtestcard1.out
 
 	gcc -o randomtestcard2 -g randomtestcard2.c dominion.c rngs.c $(CFLAGS)
-	# ./randomtestcard2 >> randomtestcard2.out
-	# gcov randomtestcard2.c >> randomtestcard2.out
-	# gcov -b dominion.c >> randomtestcard2.out
-	# cat dominion.c.gcov >> randomtestcard2.out
+	./randomtestcard2 >> randomtestcard2.out
+	gcov randomtestcard2.c >> randomtestcard2.out
+	gcov -b dominion.c >> randomtestcard2.out
+	cat dominion.c.gcov >> randomtestcard2.out
+
+	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.c rngs.c $(CFLAGS)
+	./randomtestadventurer >> randomtestadventurer.out
+	gcov randomtestadventurer.c >> randomtestadventurer.out
+	gcov -b dominion.c >> randomtestadventurer.out
+	cat dominion.c.gcov >> randomtestadventurer.out
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)

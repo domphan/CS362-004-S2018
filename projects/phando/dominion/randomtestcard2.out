@@ -1,28 +1,26 @@
-Testing the village card **15000** times
-	Testing that 1 card was actually added to the hand and village was removed:
-		Number of failures: 0
-	Testing that the deck has 1 less card: 0
+Testing the smithy card **15000** times
+	Testing that 3 cards were actually added to the hand and smithy was removed:
+		Number of failures: 15000
+	Testing that the deck has 3 less cards: 15000
 	Testing that a card was added to the played pile:
 		Number of failures: 0
-	Testing that the village card was put into the played pile:
+	Testing that the smithy card was put into the played pile:
 		Number of failures: 0
-	Testing that an action was added to the current player's turn:
-		Number of failures: 0
-File 'randomtestcard1.c'
-Lines executed:81.63% of 49
-randomtestcard1.c:creating 'randomtestcard1.c.gcov'
+File 'randomtestcard2.c'
+Lines executed:90.70% of 43
+randomtestcard2.c:creating 'randomtestcard2.c.gcov'
 
 File 'dominion.c'
-Lines executed:4.93% of 649
-Branches executed:7.43% of 417
-Taken at least once:1.68% of 417
+Lines executed:6.01% of 649
+Branches executed:7.91% of 417
+Taken at least once:2.40% of 417
 No calls
 dominion.c:creating 'dominion.c.gcov'
 
         -:    0:Source:dominion.c
         -:    0:Graph:dominion.gcno
         -:    0:Data:dominion.gcda
-        -:    0:Runs:1
+        -:    0:Runs:2
         -:    0:Programs:1
         -:    1:#include "dominion.h"
         -:    2:#include "dominion_helpers.h"
@@ -466,9 +464,9 @@ branch  1 never executed
     #####:  343:  return count;
         -:  344:}
         -:  345:
-function whoseTurn called 15000 returned 100% blocks executed 100%
+function whoseTurn called 30000 returned 100% blocks executed 100%
         -:  346:int whoseTurn(struct gameState *state) {
-    15000:  347:  return state->whoseTurn;
+    30000:  347:  return state->whoseTurn;
         -:  348:}
         -:  349:
 function endTurn called 0 returned 0% blocks executed 0%
@@ -728,12 +726,12 @@ branch  1 never executed
     #####:  522:  return 0;
         -:  523:}
         -:  524:
-function drawCard called 15000 returned 100% blocks executed 41%
+function drawCard called 75000 returned 100% blocks executed 41%
         -:  525:int drawCard(int player, struct gameState *state)
         -:  526:{	
         -:  527:  int count;
         -:  528:  int deckCounter;
-    15000:  529:  if (state->deckCount[player] <= 0){//Deck is empty
+    75000:  529:  if (state->deckCount[player] <= 0){//Deck is empty
 branch  0 taken 0%
 branch  1 taken 100%
         -:  530:
@@ -779,20 +777,20 @@ branch  1 never executed
     #####:  566:  }
         -:  567:
         -:  568:  else{
-    15000:  569:    int count = state->handCount[player];//Get current hand count for player
+    75000:  569:    int count = state->handCount[player];//Get current hand count for player
         -:  570:    int deckCounter;
         -:  571:    if (DEBUG){//Debug statements
         -:  572:      printf("Current hand count: %d\n", count);
         -:  573:    }
         -:  574:
-    15000:  575:    deckCounter = state->deckCount[player];//Create holder for the deck count
-    15000:  576:    state->hand[player][count] = state->deck[player][deckCounter - 1];//Add card to the hand
-    15000:  577:    state->deckCount[player]--;
-    15000:  578:    state->handCount[player]++;//Increment hand count
+    75000:  575:    deckCounter = state->deckCount[player];//Create holder for the deck count
+    75000:  576:    state->hand[player][count] = state->deck[player][deckCounter - 1];//Add card to the hand
+    75000:  577:    state->deckCount[player]--;
+    75000:  578:    state->handCount[player]++;//Increment hand count
         -:  579:  }
         -:  580:
-    15000:  581:  return 0;
-    15000:  582:}
+    75000:  581:  return 0;
+    75000:  582:}
         -:  583:
 function getCost called 0 returned 0% blocks executed 0%
         -:  584:int getCost(int cardNumber)
@@ -886,37 +884,37 @@ branch 27 never executed
     #####:  644:  return -1;
     #####:  645:}
         -:  646:
-function cardEffect called 15000 returned 100% blocks executed 3%
+function cardEffect called 30000 returned 100% blocks executed 3%
         -:  647:int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
         -:  648:{
         -:  649:  int i;
         -:  650:  int j;
         -:  651:  int k;
         -:  652:  int index;
-    15000:  653:  int currentPlayer = whoseTurn(state);
-    15000:  654:  int nextPlayer = currentPlayer + 1;
+    30000:  653:  int currentPlayer = whoseTurn(state);
+    30000:  654:  int nextPlayer = currentPlayer + 1;
         -:  655:
-    15000:  656:  int tributeRevealedCards[2] = {-1, -1};
+    30000:  656:  int tributeRevealedCards[2] = {-1, -1};
         -:  657:  int temphand[MAX_HAND];// moved above the if statement
         -:  658:
         -:  659:
-    15000:  660:  if (nextPlayer > (state->numPlayers - 1)){
+    30000:  660:  if (nextPlayer > (state->numPlayers - 1)){
 branch  0 taken 50%
 branch  1 taken 50%
-     7443:  661:    nextPlayer = 0;
-     7443:  662:  }
+    14886:  661:    nextPlayer = 0;
+    14886:  662:  }
         -:  663:
         -:  664:
         -:  665:  //uses switch to select card and perform actions
-    15000:  666:  switch( card )
+    30000:  666:  switch( card )
 branch  0 taken 0%
 branch  1 taken 0%
 branch  2 taken 0%
 branch  3 taken 0%
 branch  4 taken 0%
 branch  5 taken 0%
-branch  6 taken 0%
-branch  7 taken 100%
+branch  6 taken 50%
+branch  7 taken 50%
 branch  8 taken 0%
 branch  9 taken 0%
 branch 10 taken 0%
@@ -1058,8 +1056,8 @@ branch  1 never executed
     #####:  766:    return 0;
         -:  767:
         -:  768:    case smithy:
-    #####:  769:    smithyAction(state, handPos, currentPlayer);
-    #####:  770:    return 0;
+    15000:  769:    smithyAction(state, handPos, currentPlayer);
+    15000:  770:    return 0;
         -:  771:
         -:  772:    case village:
         -:  773:    //+1 Card
@@ -1481,34 +1479,34 @@ branch  1 never executed
         -: 1085:  }
         -: 1086:
     #####: 1087:  return -1;
-    15000: 1088:}
+    30000: 1088:}
         -: 1089:
-function discardCard called 15000 returned 100% blocks executed 80%
+function discardCard called 30000 returned 100% blocks executed 80%
         -: 1090:int discardCard(int handPos, int currentPlayer, struct gameState *state, int trashFlag)
         -: 1091:{
         -: 1092:
         -: 1093:  //if card is not trashed, added to Played pile
-    15000: 1094:  if (trashFlag < 1)
+    30000: 1094:  if (trashFlag < 1)
 branch  0 taken 100%
 branch  1 taken 0%
         -: 1095:  {
         -: 1096:    //add card to played pile
-    15000: 1097:    state->playedCards[state->playedCardCount] = state->hand[currentPlayer][handPos];
-    15000: 1098:    state->playedCardCount++;
-    15000: 1099:  }
+    30000: 1097:    state->playedCards[state->playedCardCount] = state->hand[currentPlayer][handPos];
+    30000: 1098:    state->playedCardCount++;
+    30000: 1099:  }
         -: 1100:
         -: 1101:  //set played card to -1
-    15000: 1102:  state->hand[currentPlayer][handPos] = -1;
+    30000: 1102:  state->hand[currentPlayer][handPos] = -1;
         -: 1103:
         -: 1104:  //remove card from player's hand
-    15000: 1105:  if ( handPos == (state->handCount[currentPlayer] - 1) ) 	//last card in hand array is played
+    30000: 1105:  if ( handPos == (state->handCount[currentPlayer] - 1) ) 	//last card in hand array is played
 branch  0 taken 0%
 branch  1 taken 100%
         -: 1106:  {
         -: 1107:    //reduce number of cards in hand
     #####: 1108:    state->handCount[currentPlayer]--;
     #####: 1109:  }
-    15000: 1110:  else if ( state->handCount[currentPlayer] == 1 ) //only one card in hand
+    30000: 1110:  else if ( state->handCount[currentPlayer] == 1 ) //only one card in hand
 branch  0 taken 0%
 branch  1 taken 100%
         -: 1111:  {
@@ -1518,14 +1516,14 @@ branch  1 taken 100%
         -: 1115:  else
         -: 1116:  {
         -: 1117:    //replace discarded card with last card in hand
-    15000: 1118:    state->hand[currentPlayer][handPos] = state->hand[currentPlayer][ (state->handCount[currentPlayer] - 1)];
+    30000: 1118:    state->hand[currentPlayer][handPos] = state->hand[currentPlayer][ (state->handCount[currentPlayer] - 1)];
         -: 1119:    //set last card to -1
-    15000: 1120:    state->hand[currentPlayer][state->handCount[currentPlayer] - 1] = -1;
+    30000: 1120:    state->hand[currentPlayer][state->handCount[currentPlayer] - 1] = -1;
         -: 1121:    //reduce number of cards in hand
-    15000: 1122:    state->handCount[currentPlayer]--;
+    30000: 1122:    state->handCount[currentPlayer]--;
         -: 1123:  }
         -: 1124:
-    15000: 1125:  return 0;
+    30000: 1125:  return 0;
         -: 1126:}
         -: 1127:
 function gainCard called 0 returned 0% blocks executed 0%
@@ -1611,17 +1609,17 @@ branch  1 never executed
     #####: 1192:  return 0;
         -: 1193:}
         -: 1194:
-function smithyAction called 0 returned 0% blocks executed 0%
+function smithyAction called 15000 returned 100% blocks executed 100%
         -: 1195:void smithyAction(struct gameState *state, int handPos, int currentPlayer){
         -: 1196:  //+3 Cards
-    #####: 1197:  for (int i = 0; i <= 3; i++) { // BUG: added = to <
-branch  0 never executed
-branch  1 never executed
-    #####: 1198:    drawCard(currentPlayer, state);
-    #####: 1199:  }
+   150000: 1197:  for (int i = 0; i <= 3; i++) { // BUG: added = to <
+branch  0 taken 80%
+branch  1 taken 20%
+    60000: 1198:    drawCard(currentPlayer, state);
+    60000: 1199:  }
         -: 1200:  //discard card from hand
-    #####: 1201:  discardCard(handPos, currentPlayer, state, 0);
-    #####: 1202:}
+    15000: 1201:  discardCard(handPos, currentPlayer, state, 0);
+    15000: 1202:}
         -: 1203:
 function adventurerAction called 0 returned 0% blocks executed 0%
         -: 1204:void adventurerAction(struct gameState *state, int currentPlayer, int temphand[]){

@@ -70,9 +70,7 @@ int main(){
         testGame.deckCount[p] = rand() % (MAX_DECK + 1 - MIN_DECK_SMITHY) + MIN_DECK_SMITHY;
         testGame.playedCardCount = 0;
         testGame.hand[p][0] = smithy;
-        printf("%d\n", k);
         testOracleSmithy(&testGame, &failures, p);
-        printf("%d\n", k);
     }
     printf("Testing the smithy card **%d** times\n", TEST_ITERATIONS);
     printf("\tTesting that 3 cards were actually added to the hand and smithy was removed:\n\t\tNumber of failures: %d\n", failures.handCountFail);
