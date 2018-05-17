@@ -1,0 +1,77 @@
+        -:    0:Source:unittest1.c
+        -:    0:Graph:unittest1.gcno
+        -:    0:Data:unittest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// Dominic Phan
+        -:    2:// Testing supplyCount()
+        -:    3:
+        -:    4:#include "dominion.h"
+        -:    5:#include "dominion_helpers.h"
+        -:    6:#include <string.h>
+        -:    7:#include <stdio.h>
+        -:    8:#include <assert.h>
+        -:    9:#include "rngs.h"
+        -:   10:int totalFail = 0;
+        -:   11:void asserttrue(int a, int b)
+        -:   12:{
+       18:   13:  if (a == b)
+        -:   14:  {
+       18:   15:    printf("\t\t\tAssert Passed\n");
+       18:   16:  }
+        -:   17:  else
+        -:   18:  {
+    #####:   19:    totalFail++;
+    #####:   20:    printf("\t\t\tAssert failed, total fails: %d\n", totalFail);
+        -:   21:  }
+       18:   22:}
+        -:   23:int main(){
+        1:   24:  int seed = 1000;
+        1:   25:  int numPlayer = 4;
+        -:   26:  int p, r;
+        -:   27:  // select kingdom cards
+        1:   28:  int k[10] = {adventurer, council_room, feast, gardens, mine,
+        -:   29:               remodel, smithy, village, baron, great_hall};
+        -:   30:  struct gameState G;
+        -:   31:
+        -:   32:  /* The supplyCount() function must return the correct amount of supply cards currently available.
+        -:   33:  * This is important because when 3 supplies are depleted, the game ends, so this function must work 
+        -:   34:  ** correctly.
+        -:   35:  * Things to note: victory cards and curses have different numbers of cards depending on numPlayer
+        -:   36:  *                 curse cards = (numPlayers-1) * 10
+        -:   37:  *                 victory cards = 8 for two players; 12 for 3+
+        -:   38:  *                 resource cards = 30 gold, 40, silver; 60 - (numplayer * 7)
+        -:   39:  *                 nonvictory kingdom cards = 10
+        -:   40:  */
+        1:   41:  printf("TESTING supplyCount():\n");
+        -:   42:  // testing for players 2, 3, 4
+        8:   43:  for (p = 2; p <= numPlayer; p++){
+        3:   44:    memset(&G, 23, sizeof(struct gameState)); // clear game state
+        3:   45:    r = initializeGame(numPlayer, k, seed, &G); // initialize new game
+        3:   46:    printf("\tTesting supplyCount() with %d players\n", p);
+        -:   47:    // Check resource cards
+        3:   48:    printf("\t\tChecking copper, silver, gold\n");
+        3:   49:    asserttrue(supplyCount(copper, &G), (60 - (7*numPlayer)));
+        3:   50:    asserttrue(supplyCount(silver, &G), 40);
+        3:   51:    asserttrue(supplyCount(gold, &G), 30);
+        3:   52:    printf("\t\tChecking curse cards\n");
+        3:   53:    asserttrue(supplyCount(curse, &G), (numPlayer-1) * 10);
+        3:   54:    printf("\t\tChecking a kingdom card\n");
+        3:   55:    asserttrue(supplyCount(feast, &G), 10);
+        3:   56:    printf("\t\tChecking a victory card\n");
+        3:   57:    if (numPlayer == 2) {
+        -:   58:
+    #####:   59:      asserttrue(supplyCount(gardens, &G), 8);
+    #####:   60:    }
+        -:   61:    else {
+        3:   62:      asserttrue(supplyCount(gardens, &G), 12);
+        -:   63:    }
+        -:   64:
+        3:   65:  }
+        1:   66:  if (totalFail == 0) {
+        1:   67:    printf("FINAL RESULT: All tests passed\n");
+        1:   68:  } else {
+    #####:   69:    printf("FINAL RESULT: %d FAILURES\n", totalFail);
+        -:   70:  }
+        1:   71:  return 0;
+        -:   72:}

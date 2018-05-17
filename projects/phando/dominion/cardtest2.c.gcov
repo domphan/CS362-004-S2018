@@ -1,0 +1,207 @@
+        -:    0:Source:cardtest2.c
+        -:    0:Graph:cardtest2.gcno
+        -:    0:Data:cardtest2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// Dominic Phan
+        -:    2:// testing adventurer
+        -:    3:
+        -:    4:#include "dominion.h"
+        -:    5:#include "dominion_helpers.h"
+        -:    6:#include <string.h>
+        -:    7:#include <stdio.h>
+        -:    8:#include <assert.h>
+        -:    9:#include "rngs.h"
+        -:   10:int totalFail = 0;
+        -:   11:void asserttrue(int a, int b)
+        -:   12:{
+      276:   13:  if (a == b)
+        -:   14:  {
+      244:   15:    printf("\t\t\t***Assert Passed***\n\n");
+      244:   16:  }
+        -:   17:  else
+        -:   18:  {
+       32:   19:    totalFail++;
+       32:   20:    printf("\t\t\t***Assert failed, total fails***: %d\n\n", totalFail);
+        -:   21:  }
+      276:   22:}
+        -:   23:int main()
+        -:   24:{
+        -:   25:  int i, j;
+        1:   26:  int handPos = 0;
+        1:   27:  int choice1 = 0;
+        1:   28:  int choice2 = 0;
+        1:   29:  int choice3 = 0;
+        1:   30:  int *bonus = NULL;
+        1:   31:  int seed = 1000;
+        1:   32:  int numPlayer = 4;
+        -:   33:  int p, r;
+        -:   34:  int currHandCount;
+        -:   35:  int discardCounter;
+        1:   36:  int deckTest1[10] = {estate, estate, estate, copper, copper,
+        -:   37:                       copper, copper, copper, copper, copper};
+        1:   38:  int deckTest2[10] = {copper, copper, copper, copper, copper,
+        -:   39:                       copper, copper, estate, estate, estate};
+        1:   40:  int discardTest3[10] = {copper, copper, copper, copper, copper, 
+        -:   41:                          copper, copper, estate, estate, estate};
+        1:   42:  int deckTest4[10] = {copper, estate, estate, estate};
+        1:   43:  int discardTest4[10] = {copper, copper, copper, copper, copper, 
+        -:   44:                          copper};
+        -:   45:  // select kingdom cards
+        1:   46:  int k[10] = {adventurer, council_room, feast, gardens, mine,
+        -:   47:               remodel, smithy, village, baron, great_hall};
+        -:   48:  struct gameState state;
+        -:   49:  struct gameState otherPlayersState;
+        -:   50:  /*
+        -:   51:  * The adventurer kingdom card is supposed to search the deck until two treasures are found
+        -:   52:  * it then discards all cards that were not treasures.
+        -:   53:  * There are a few situations we need to test:
+        -:   54:  * * Top two cards are treasures
+        -:   55:  * * Treasures somewhere in the middle of the deck
+        -:   56:  * * Empty deck, with rest of cards in discard pile
+        -:   57:  * * One treasure in the deck, one treasure in the discard pile.
+        -:   58:  * * Preconditions: Each player has a deck with at least two treasure cards (inf loop if not)
+        -:   59:  * * Postconditions: The player will have two treasures in their hand and the player will
+        -:   60:  * *                 possibly have cards in their discard pile.
+        -:   61:  */
+        1:   62:  memset(&state, 23, sizeof(struct gameState));
+        1:   63:  r = initializeGame(numPlayer, k, seed, &state);
+        1:   64:  printf("Testing the adventurer card:\n");
+       10:   65:  for (p = 0; p < numPlayer; p++) {
+        4:   66:    printf("Testing for player %d\n", p);
+        4:   67:    memcpy(otherPlayersState.hand, state.hand, sizeof(int) * MAX_HAND * MAX_PLAYERS);
+        4:   68:    memcpy(otherPlayersState.deck, state.deck, sizeof(int) * MAX_DECK * MAX_PLAYERS);
+        4:   69:    memcpy(otherPlayersState.discard, state.discard, sizeof(int) * MAX_DECK * MAX_PLAYERS);
+       40:   70:    for (i = 0; i < numPlayer; i++)
+        -:   71:    {
+       16:   72:      otherPlayersState.handCount[i] = state.handCount[i];
+       16:   73:      otherPlayersState.deckCount[i] = state.deckCount[i];
+       16:   74:      otherPlayersState.discardCount[i] = state.discardCount[i];
+       16:   75:    }
+        -:   76:
+        -:   77:    // Test deck scenario 1
+        4:   78:    printf("\tTesting adventurer with two treasures at top of deck:\n");
+        4:   79:    memcpy(state.deck[p], deckTest1, sizeof(int) * 10);
+        4:   80:    state.deckCount[p] = 10;
+        4:   81:    discardCounter = state.discardCount[p];
+        4:   82:    currHandCount = state.handCount[p];
+        4:   83:    cardEffect(adventurer, choice1, choice2, choice3, &state, handPos, bonus);
+        4:   84:    printf("\t\tChecking to see if two cards were added to the hand:\n");
+        4:   85:    printf("\t\t\tExpected: %d, result: %d", currHandCount + 2, state.handCount[p]);
+        4:   86:    asserttrue(state.handCount[p], currHandCount + 2);
+        4:   87:    printf("\t\tChecking to see if the last two cards added were copper:\n");
+       24:   88:    for (i = 0; i < 2; i++) {
+        8:   89:      printf("\t\t\tChecking index %d in the hand:  Expected: %d result: %d\n", (currHandCount+i), copper, state.hand[p][currHandCount + i]);
+        8:   90:      asserttrue(copper, state.hand[p][currHandCount + i]);
+        8:   91:    }
+        4:   92:    printf("\t\tChecking to see that no cards were discarded, since coppers were at top:\n");
+        4:   93:    printf("\t\t\tExpected: %d results: %d\n", discardCounter, state.discardCount[p]);
+        4:   94:    asserttrue(state.discardCount[p], discardCounter);
+        4:   95:    printf("\t\tChecking to see that adventurer was played into the played pile:\n");
+        4:   96:    printf("\t\t\tExpected: %d, results %d\n", adventurer, state.playedCards[state.playedCardCount-1]);
+        4:   97:    asserttrue(adventurer, state.playedCards[state.playedCardCount-1]);
+        -:   98:
+        -:   99:    //Check that other player's states were not mutated
+        4:  100:    printf("\t\tChecking that other player's states were not mutated:\n");
+       40:  101:    for (i = 0; i < numPlayer; i++)
+        -:  102:    {
+       16:  103:      if (i != p)
+        -:  104:      {
+       12:  105:        printf("\t\t\tChecking player %d's hand:\n", i);
+       24:  106:        for (j = 0; j < otherPlayersState.handCount[i]; j++)
+        -:  107:        {
+    #####:  108:          printf("\t\t\tExpected: %d, result: %d\n", otherPlayersState.hand[i][j], state.hand[i][j]);
+    #####:  109:          asserttrue(state.hand[i][j], otherPlayersState.hand[i][j]);
+    #####:  110:        }
+       12:  111:        printf("\t\t\tChecking player %d's deck:\n", i);
+      192:  112:        for (j = 0; j < otherPlayersState.deckCount[i]; j++)
+        -:  113:        {
+       84:  114:          printf("\t\t\tExpected: %d, result: %d\n", otherPlayersState.deck[i][j], state.deck[i][j]);
+       84:  115:          asserttrue(otherPlayersState.deck[i][j], state.deck[i][j]);
+       84:  116:        }
+       12:  117:        printf("\t\t\tChecking player %d's discard:\n", i);
+      264:  118:        for (j = 0; j < otherPlayersState.discardCount[i]; j++)
+        -:  119:        {
+      120:  120:          printf("\t\t\tExpected: %d, Result: %d\n", otherPlayersState.discard[i][j], state.discard[i][j]);
+      120:  121:          asserttrue(otherPlayersState.discard[i][j], state.discard[i][j]);
+      120:  122:        }
+       12:  123:      }
+       16:  124:    } 
+        -:  125:
+        -:  126:      // Test deck scenario 2
+        4:  127:      printf("\tTesting adventurer with two treasures at the middle of deck:\n");
+        4:  128:      memcpy(state.deck[p], deckTest2, sizeof(int) * 10);
+        4:  129:      state.deckCount[p] = 10;
+        4:  130:      discardCounter = state.discardCount[p];
+        4:  131:      currHandCount = state.handCount[p];
+        4:  132:      cardEffect(adventurer, choice1, choice2, choice3, &state, handPos, bonus);
+        4:  133:      printf("\t\tChecking to see if two cards were added to the hand:\n");
+        4:  134:      printf("\t\t\tExpected: %d, result: %d", currHandCount + 2, state.handCount[p]);
+        4:  135:      asserttrue(state.handCount[p], currHandCount + 2);
+        4:  136:      printf("\t\tChecking to see if the last two cards added were copper:\n");
+       24:  137:      for (i = 0; i < 2; i++)
+        -:  138:      {
+        8:  139:        printf("\t\t\tChecking index %d in the hand:  Expected: %d result: %d\n", (currHandCount + i), copper, state.hand[p][currHandCount + i]);
+        8:  140:        asserttrue(copper, state.hand[p][currHandCount + i]);
+        8:  141:      }
+        4:  142:      printf("\t\tChecking to see that three estate cards were discarded:\n");
+        4:  143:      printf("\t\t\tExpected: %d results: %d\n", discardCounter + 3, state.discardCount[p]);
+        4:  144:      asserttrue(state.discardCount[p], discardCounter + 3);
+        4:  145:      printf("\t\tChecking to see that adventurer was played into the played pile:\n");
+        4:  146:      printf("\t\t\tExpected: %d, results %d\n", adventurer, state.playedCards[state.playedCardCount - 1]);
+        4:  147:      asserttrue(adventurer, state.playedCards[state.playedCardCount - 1]);
+        -:  148:
+        -:  149:      // Test deck scenario 3
+        4:  150:      printf("\tTesting adventurer with an empty deck.\n");
+        4:  151:      state.deckCount[p] = 0;
+        4:  152:      memcpy(state.discard[p], discardTest3, sizeof(int) * 10);
+        4:  153:      state.discardCount[p] = 10;
+        4:  154:      currHandCount = state.handCount[p];
+        4:  155:      cardEffect(adventurer, choice1, choice2, choice3, &state, handPos, bonus);
+        4:  156:      printf("\t\tChecking to see if two cards were added to the hand:\n");
+        4:  157:      printf("\t\t\tExpected: %d, result: %d\n", currHandCount + 2, state.handCount[p]);
+        4:  158:      asserttrue(state.handCount[p], currHandCount + 2);
+        4:  159:      printf("\t\tChecking to see if the last two cards added were copper:\n");
+       24:  160:      for (i = 0; i < 2; i++)
+        -:  161:      {
+        8:  162:        printf("\t\t\tChecking index %d in the hand:  Expected: %d result: %d\n", (currHandCount + i), copper, state.hand[p][currHandCount + i]);
+        8:  163:        asserttrue(copper, state.hand[p][currHandCount + i]);
+        8:  164:      }
+        4:  165:      printf("\t\tChecking to see that adventurer was played into the played pile:\n");
+        4:  166:      printf("\t\t\tExpected: %d, results %d\n", adventurer, state.playedCards[state.playedCardCount - 1]);
+        4:  167:      asserttrue(adventurer, state.playedCards[state.playedCardCount - 1]);
+        -:  168:
+        -:  169:      // Test deck scenario 4
+        4:  170:      printf("\tTesting adventurer with 1 copper in deck and the rest in discard pile\n");
+        4:  171:      memcpy(state.discard[p], discardTest4, sizeof(int) * 6);
+        4:  172:      state.discardCount[p] = 6;
+        4:  173:      memcpy(state.deck[p], deckTest4, sizeof(int) * 4);
+        4:  174:      state.deckCount[p] = 4;
+        4:  175:      currHandCount = state.handCount[p];
+        4:  176:      cardEffect(adventurer, choice1, choice2, choice3, &state, handPos, bonus);
+        4:  177:      printf("\t\tChecking to see if two cards were added to the hand:\n");
+        4:  178:      printf("\t\t\tExpected: %d, result: %d", currHandCount + 2, state.handCount[p]);
+        4:  179:      asserttrue(state.handCount[p], currHandCount + 2);
+        4:  180:      printf("\t\tChecking to see if the last two cards added were copper:\n");
+       24:  181:      for (i = 0; i < 2; i++)
+        -:  182:      {
+        8:  183:        printf("\t\t\tChecking index %d in the hand:  Expected: %d result: %d\n", (currHandCount + i), copper, state.hand[p][currHandCount + i]);
+        8:  184:        asserttrue(copper, state.hand[p][currHandCount + i]);
+        8:  185:      }
+        4:  186:      printf("\t\tChecking to see that adventurer was played into the played pile:\n");
+        4:  187:      printf("\t\t\tExpected: %d, results %d\n", adventurer, state.playedCards[state.playedCardCount - 1]);
+        4:  188:      asserttrue(adventurer, state.playedCards[state.playedCardCount - 1]);
+        4:  189:      endTurn(&state);
+        4:  190:  }
+        -:  191:
+        -:  192:
+        1:  193:  if (totalFail == 0)
+        -:  194:  {
+    #####:  195:    printf("FINAL RESULT: All tests passed\n");
+    #####:  196:  }
+        -:  197:  else
+        -:  198:  {
+        1:  199:    printf("FINAL RESULT: %d FAILURES\n", totalFail);
+        -:  200:  }
+        1:  201:  return 0;
+        -:  202:}
