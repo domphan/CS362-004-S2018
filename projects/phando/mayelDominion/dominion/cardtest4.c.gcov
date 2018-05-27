@@ -1,0 +1,198 @@
+        -:    0:Source:cardtest4.c
+        -:    0:Graph:cardtest4.gcno
+        -:    0:Data:cardtest4.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// Dominic Phan
+        -:    2:// Testing Mine
+        -:    3:// uses choice1, choice2, currentPlayer, handPos
+        -:    4:
+        -:    5:#include "dominion.h"
+        -:    6:#include "dominion_helpers.h"
+        -:    7:#include <string.h>
+        -:    8:#include <stdio.h>
+        -:    9:#include <assert.h>
+        -:   10:#include "rngs.h"
+        -:   11:int totalFail = 0;
+        -:   12:void asserttrue(int a, int b)
+        -:   13:{
+      280:   14:  if (a == b)
+        -:   15:  {
+      259:   16:    printf("\t\t\t***Assert Passed***\n\n");
+      259:   17:  }
+        -:   18:  else
+        -:   19:  {
+       21:   20:    totalFail++;
+       21:   21:    printf("\t\t\t***Assert failed, total fails***: %d\n\n", totalFail);
+        -:   22:  }
+      280:   23:}
+        -:   24:
+        -:   25:int calculateEndAmount(int j, int k) {
+       16:   26:  if (j == k) {
+        6:   27:    return 1;
+        -:   28:  } 
+        -:   29:  else {
+       10:   30:    return 2;
+        -:   31:  }
+       16:   32:}
+        -:   33:int main()
+        -:   34:{
+        -:   35:  int i, j, k, m;
+        -:   36:  char innerLoopName[10];
+        -:   37:  char outerLoopName[10];
+        1:   38:  int handCount = 5;
+        1:   39:  int handPos = 0; // position of mine
+        1:   40:  int choice1 = 0;
+        1:   41:  int choice2 = 0;
+        1:   42:  int choice3 = 0;
+        1:   43:  int *bonus = NULL;
+        1:   44:  int seed = 1000;
+        1:   45:  int numPlayer = 4;
+        -:   46:  int r;
+        1:   47:  int p = 0;
+        -:   48:  int currHandCount;
+        -:   49:  int discardCounter;
+        -:   50:  int playedCounter;
+        -:   51:  int currDeckCounter;
+        1:   52:  int endResult = 0; // Holds the amount of treasure that we should have in the hand.
+        -:   53:  // select kingdom cards
+        1:   54:  int kingdom[10] = {adventurer, council_room, feast, gardens, mine,
+        -:   55:               remodel, smithy, village, baron, great_hall};
+        1:   56:  int testHand[MAX_HAND] = {mine, copper, silver, gold, estate};
+        -:   57:  struct gameState state, otherPlayersState;
+        -:   58:  int successFlag;
+        -:   59:
+        -:   60:  /*
+        -:   61:  * The mine kingdom card allows a player to trash (remove from play) a treasure card and gain
+        -:   62:  * a treasure card (up to +3 cost of trashed card) to your hand.
+        -:   63:  * Preconditions: The player must have a treasure card in their hand
+        -:   64:  * Postconditions: The plyaer will gain a new treasure card that is within +3 cost of trashed card.
+        -:   65:  * We need to test what happens with copper, silver, gold in the player's hand.
+        -:   66:  * We need to test that the treasure was removed from play, so not in discard pile or hand still.
+        -:   67:  * We need to test that a new treasure was added to the player's hand pile (gained).
+        -:   68:  * We need to test that mine was added to the played pile.
+        -:   69:  * We need to test that none of the other player's states were changed.
+        -:   70:  */
+        1:   71:  memset(&state, 23, sizeof(struct gameState));
+        1:   72:  r = initializeGame(numPlayer, kingdom, seed, &state);
+        1:   73:  printf("Testing the mine card:\n");
+        8:   74:  for (j = copper; j <= gold; j++) {
+       24:   75:    for (k = copper; k <= gold; k++) {
+        9:   76:      if (j == copper) {
+        3:   77:        strncpy(outerLoopName, "copper\0", 7);
+        9:   78:      } else if (j == silver) {
+        3:   79:        strncpy(outerLoopName, "silver\0", 7);
+        3:   80:      } else {
+        3:   81:        strncpy(outerLoopName, "gold\0", 5);
+        -:   82:      }
+        9:   83:      if (k == copper) {
+        3:   84:        strncpy(innerLoopName, "copper\0", 7);
+        9:   85:      } else if (k == silver) {
+        3:   86:        strncpy(innerLoopName, "silver\0", 7);
+        3:   87:      } else {
+        3:   88:        strncpy(innerLoopName, "gold\0", 5);
+        -:   89:      }
+       12:   90:      if (j == copper && k == gold) {
+        1:   91:        continue;
+        -:   92:      }
+        8:   93:      memcpy(otherPlayersState.hand, state.hand, sizeof(int) * MAX_HAND * MAX_PLAYERS);
+        8:   94:      memcpy(otherPlayersState.deck, state.deck, sizeof(int) * MAX_DECK * MAX_PLAYERS);
+        8:   95:      memcpy(otherPlayersState.discard, state.discard, sizeof(int) * MAX_DECK * MAX_PLAYERS);
+       80:   96:      for (i = 0; i < numPlayer; i++)
+        -:   97:      {
+       32:   98:        otherPlayersState.handCount[i] = state.handCount[i];
+       32:   99:        otherPlayersState.deckCount[i] = state.deckCount[i];
+       32:  100:        otherPlayersState.discardCount[i] = state.discardCount[i];
+       32:  101:      }
+        -:  102:      // --------------------------- Tests ---------------------------
+        8:  103:      printf("Testing Mine converting %s to %s:\n", outerLoopName, innerLoopName);
+        8:  104:      memcpy(state.hand[0], testHand, sizeof(int) * handCount);
+        8:  105:      state.handCount[0] = 5;
+        8:  106:      choice1 = j - 3; // position of treasure that will be sacrificed
+        8:  107:      handPos = 0;     // Position of the mine card
+        8:  108:      choice2 = k;
+        8:  109:      discardCounter = state.discardCount[0];
+        8:  110:      currHandCount = state.handCount[0];
+        8:  111:      playedCounter = state.playedCardCount;
+        8:  112:      currDeckCounter = state.deckCount[0];
+        8:  113:      cardEffect(mine, choice1, choice2, choice3, &state, handPos, bonus);
+        8:  114:      printf("\tTesting that %s was removed from the hand along with mine:\n", outerLoopName);
+        8:  115:      printf("\t\tCards in hand --> Expected: %d result: %d\n", currHandCount - 1, state.handCount[0]);
+        8:  116:      asserttrue(currHandCount - 1, state.handCount[0]);
+        -:  117:
+        8:  118:      printf("\tTesting that %s was removed from the hand:\n", outerLoopName);
+        8:  119:      successFlag = 1;
+       92:  120:      for (i = 0; i < state.handCount[0]; i++) {
+       38:  121:        if (state.hand[0][i] == j) {
+        6:  122:          successFlag = 0;
+        6:  123:        }
+       38:  124:      }
+        8:  125:      printf("\t\tExpected: %d Result: %d\n", 1, successFlag);
+        8:  126:      asserttrue(successFlag, 1);
+        -:  127:
+        8:  128:      printf("\tTesting that %s was removed from play:\n", outerLoopName);
+        8:  129:      successFlag = 1;
+       16:  130:      for (i = 0; i < state.discardCount[0]; i++) {
+    #####:  131:        if (state.discard[0][i] == j){
+    #####:  132:          successFlag = 0;
+    #####:  133:        }
+    #####:  134:      }
+        8:  135:      printf("\t\tChecking the discard pile for %s --> Expected: %d result :%d\n", outerLoopName, 1, successFlag);
+        8:  136:      asserttrue(1, successFlag);
+        -:  137:
+        8:  138:      printf("\tTesting that the %s was added to the hand:\n", innerLoopName);
+        8:  139:      endResult = 0;
+       92:  140:      for (int i = 0; i < state.handCount[0]; i++) {
+       38:  141:        if (state.hand[0][i] == k) {
+       10:  142:          endResult++;
+       10:  143:        }
+       38:  144:      }
+        8:  145:      printf("\t\tChecking the hand for %s --> Expected: %d Result: %d\n", innerLoopName, calculateEndAmount(j,k), endResult);
+        8:  146:      asserttrue(calculateEndAmount(j, k), endResult);
+        -:  147:
+        8:  148:      printf("\tTesting that mine was added to the played pile:\n");
+        8:  149:      printf("\t\tChecking the played pile for mine --> Expected: %d Result: %d\n", mine, state.playedCards[playedCounter]);
+        8:  150:      asserttrue(mine, state.playedCards[playedCounter]);
+        -:  151:
+        -:  152:      // Check that other player's states were not mutated
+        8:  153:      printf("\t\tChecking that other player's states were not mutated:\n");
+       80:  154:      for (i = 0; i < numPlayer; i++)
+        -:  155:      {
+       32:  156:        if (i != p)
+        -:  157:        {
+       24:  158:          printf("\t\t\tChecking player %d's hand:\n", i);
+       48:  159:          for (m = 0; m < otherPlayersState.handCount[i]; m++)
+        -:  160:          {
+    #####:  161:            printf("\t\t\tExpected: %d, result: %d\n", otherPlayersState.hand[i][m], state.hand[i][m]);
+    #####:  162:            asserttrue(state.hand[i][m], otherPlayersState.hand[i][m]);
+    #####:  163:          }
+       24:  164:          printf("\t\t\tChecking player %d's deck:\n", i);
+      528:  165:          for (m = 0; m < otherPlayersState.deckCount[i]; m++)
+        -:  166:          {
+      240:  167:            printf("\t\t\tExpected: %d, result: %d\n", otherPlayersState.deck[i][m], state.deck[i][m]);
+      240:  168:            asserttrue(otherPlayersState.deck[i][m], state.deck[i][m]);
+      240:  169:          }
+       24:  170:          printf("\t\t\tChecking player %d's discard:\n", i);
+       48:  171:          for (m = 0; m < otherPlayersState.discardCount[i]; m++)
+        -:  172:          {
+    #####:  173:            printf("\t\t\tExpected: %d, Result: %d\n", otherPlayersState.discard[i][m], state.discard[i][m]);
+    #####:  174:            asserttrue(otherPlayersState.discard[i][m], state.discard[i][m]);
+    #####:  175:          }
+       24:  176:        }
+       32:  177:      }
+        8:  178:    }
+        -:  179:    
+        3:  180:  }
+        -:  181:
+        -:  182:
+        -:  183:
+        1:  184:  if (totalFail == 0)
+        -:  185:  {
+    #####:  186:    printf("FINAL RESULT: All tests passed\n");
+    #####:  187:  }
+        -:  188:  else
+        -:  189:  {
+        1:  190:    printf("FINAL RESULT: %d FAILURES\n", totalFail);
+        -:  191:  }
+        1:  192:  return 0;
+        -:  193:}

@@ -1,0 +1,92 @@
+        -:    0:Source:randomtestcard1.c
+        -:    0:Graph:randomtestcard1.gcno
+        -:    0:Data:randomtestcard1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// Testing the village card randomly
+        -:    2:
+        -:    3:#define TEST_ITERATIONS 15000
+        -:    4:#define SEED 35
+        -:    5:#define MIN_DECK_VILLAGE 1
+        -:    6:
+        -:    7:#include "dominion.h"
+        -:    8:#include "dominion_helpers.h"
+        -:    9:#include "rngs.h"
+        -:   10:#include <string.h>
+        -:   11:#include <stdlib.h>
+        -:   12:#include <assert.h>
+        -:   13:#include <stdio.h>
+        -:   14:#include <time.h>
+        -:   15:#include <math.h>
+        -:   16:
+        -:   17:struct failStateMine {
+        -:   18:    int failHand;
+        -:   19:    int failDeck;
+        -:   20:    int failPlayed;
+        -:   21:    int failPlayedCount;
+        -:   22:    int failAction;
+        -:   23:};
+        -:   24:
+        -:   25:void initializeFailStateVillage(struct failStateMine* fail) {
+        1:   26:    fail->failHand = 0;
+        1:   27:    fail->failDeck = 0;
+        1:   28:    fail->failPlayed = 0;
+        1:   29:    fail->failPlayedCount = 0;
+        1:   30:    fail->failAction = 0;
+        1:   31:}
+        -:   32:
+        -:   33:void testOracleVillage(struct gameState *pre, struct failStateMine *fail, int player) {
+        -:   34:    struct gameState previousCopy;
+    15000:   35:    int choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0, handPos = 0;
+    15000:   36:    previousCopy = *pre;
+    15000:   37:    cardEffect(village, choice1, choice2, choice3, pre, handPos, &bonus);
+        -:   38:    // Need to test that one card was drawn and mine was discarded
+    15000:   39:    if (previousCopy.handCount[player] != pre->handCount[player]){
+    #####:   40:        fail->failHand++;
+    #####:   41:    }
+        -:   42:    // Need to test that the deck has one less card
+    15000:   43:    if (pre->deckCount[player] != previousCopy.deckCount[player] - 1) {
+    #####:   44:        fail->failDeck++;
+    #####:   45:    }
+        -:   46:    // Need to test that one card was put into the played pile and that one card is mine
+    15000:   47:    if (pre->playedCardCount == previousCopy.playedCardCount + 1) {
+    15000:   48:        if (pre->playedCards[pre->playedCardCount-1] != village) {
+    #####:   49:            fail->failPlayed++;
+    #####:   50:        }
+    15000:   51:    } else {
+    #####:   52:        fail->failPlayedCount++;
+        -:   53:    }
+        -:   54:    // Need to test that two actions was added
+    15000:   55:    if (pre->numActions != previousCopy.numActions + 2) {
+    #####:   56:        fail->failAction++;
+    #####:   57:    }
+    15000:   58:}
+        -:   59:
+        -:   60:int main() {
+        -:   61:    int i, p, k;
+        -:   62:    struct gameState testGame;
+        -:   63:    struct failStateMine failures;
+        1:   64:    initializeFailStateVillage(&failures);
+        1:   65:    srand(SEED);
+    30002:   66:    for (k = 0; k < TEST_ITERATIONS; k++) {
+    15000:   67:        memset(&testGame, 23, sizeof(struct gameState));
+789030000:   68:        for (i = 0; i < sizeof(struct gameState); i++) {
+394500000:   69:            ((char*)&testGame)[i] = rand() % (255 + 1 - 0) + 0;
+394500000:   70:        }
+    15000:   71:        p = rand() % (MAX_PLAYERS - 1 + 1 - 1) + 1;
+    15000:   72:        testGame.discardCount[p] = 0;
+    15000:   73:        testGame.handCount[p] = rand() % (MAX_HAND - 4 + 1 - 1) + 1;
+    15000:   74:        testGame.whoseTurn = p;
+    15000:   75:        testGame.deckCount[p] = rand() % (MAX_DECK + 1 - MIN_DECK_VILLAGE) + MIN_DECK_VILLAGE;
+    15000:   76:        testGame.playedCardCount = 0;
+    15000:   77:        testGame.hand[p][0] = village;
+    15000:   78:        testGame.numActions = 0;
+    15000:   79:        testOracleVillage(&testGame, &failures, p);
+    15000:   80:    }
+        1:   81:    printf("Testing the village card **%d** times\n", TEST_ITERATIONS);
+        1:   82:    printf("\tTesting that 1 card was actually added to the hand and village was removed:\n\t\tNumber of failures: %d\n", failures.failHand);
+        1:   83:    printf("\tTesting that the deck has 1 less card: %d\n", failures.failDeck);
+        1:   84:    printf("\tTesting that a card was added to the played pile:\n\t\tNumber of failures: %d\n", failures.failPlayedCount);
+        1:   85:    printf("\tTesting that the village card was put into the played pile:\n\t\tNumber of failures: %d\n", failures.failPlayed);
+        1:   86:    printf("\tTesting that an action was added to the current player's turn:\n\t\tNumber of failures: %d\n", failures.failAction);
+        1:   87:}

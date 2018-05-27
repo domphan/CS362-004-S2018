@@ -1,0 +1,118 @@
+        -:    0:Source:unittest3.c
+        -:    0:Graph:unittest3.gcno
+        -:    0:Data:unittest3.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// Dominic phan
+        -:    2:// gainCard() unit test
+        -:    3:
+        -:    4:#include "dominion.h"
+        -:    5:#include "dominion_helpers.h"
+        -:    6:#include <string.h>
+        -:    7:#include <stdio.h>
+        -:    8:#include <assert.h>
+        -:    9:#include "rngs.h"
+        -:   10:int totalFail = 0;
+        -:   11:void asserttrue(int a, int b)
+        -:   12:{
+       44:   13:  if (a == b)
+        -:   14:  {
+       44:   15:    printf("\t\t\tAssert Passed\n");
+       44:   16:  }
+        -:   17:  else
+        -:   18:  {
+    #####:   19:    totalFail++;
+    #####:   20:    printf("\t\t\tAssert failed, total fails: %d\n", totalFail);
+        -:   21:  }
+       44:   22:}
+        -:   23:
+        -:   24:int main()
+        -:   25:{
+        1:   26:  int seed = 1000;
+        1:   27:  int numPlayer = 4;
+        -:   28:  int p, r, handCount;
+        -:   29:  int successFlag;
+        -:   30:  int initialCount;
+        -:   31:  int supplyCounter;
+        -:   32:  // select kingdom cards
+        1:   33:  int k[10] = {adventurer, council_room, feast, gardens, mine,
+        -:   34:               remodel, smithy, village, baron, great_hall};
+        -:   35:  struct gameState state;
+        1:   36:  handCount = 5;
+        -:   37:
+        -:   38:  /* Testing code goes here*/
+        -:   39:
+        -:   40:  /*
+        -:   41:  * gainCard uses supplyPos, state, toFlag, and player
+        -:   42:  * We must test gainCard with multiple players
+        -:   43:  * gainCard takes a card from the supply pile and adds it to the discard pile
+        -:   44:  * We must check that supply from supplypos is decremented and the player's discard pile
+        -:   45:  * is incremented.
+        -:   46:  */
+       10:   47:  for (p = 0; p < numPlayer; p++) {
+        4:   48:    memset(&state, 23, sizeof(struct gameState));
+        4:   49:    r = initializeGame(numPlayer, k, seed, &state);
+        -:   50:    // Check discard pile and check that it was removed from supply
+        4:   51:    printf("Testing gainCard() to discard pile:\n");
+        4:   52:    initialCount = state.discardCount[p];
+        4:   53:    supplyCounter = supplyCount(feast, &state);
+        4:   54:    successFlag = gainCard(feast, &state, 0, p);
+        4:   55:    printf("\tThis indicates that the function returned a correct value for success:\n");
+        4:   56:    asserttrue(successFlag, 0);
+        4:   57:    printf("\tThis indicates that the supply card was found in the discard pile:\n");
+        4:   58:    printf("\t\tExpected: %d, result: %d\n", feast, state.discard[p][initialCount]);
+        4:   59:    asserttrue(state.discard[p][initialCount], feast);
+        4:   60:    printf("\tThis indicates that the supply count has decremented meaning a card has been taken out:\n");
+        4:   61:    printf("\t\tExpected: %d, result: %d\n", supplyCounter-1, supplyCount(feast, &state));
+        4:   62:    asserttrue(supplyCount(feast, &state), supplyCounter - 1);
+        -:   63:
+        -:   64:    // Check deck and check that it was removed from supply
+        4:   65:    printf("Testing gainCard() to deck pile:\n");
+        4:   66:    initialCount = state.deckCount[p];
+        4:   67:    supplyCounter = supplyCount(gardens, &state);
+        4:   68:    successFlag = gainCard(gardens, &state, 1, p);
+        4:   69:    printf("\tThis indicates that the function returned a correct value for success:\n");
+        4:   70:    asserttrue(successFlag, 0);
+        4:   71:    printf("\tThis indicates that the supply card was found in the deck pile:\n");
+        4:   72:    printf("\t\tExpected: %d, result: %d\n", gardens, state.deck[p][initialCount]);
+        4:   73:    asserttrue(state.deck[p][initialCount], gardens);
+        4:   74:    printf("\tThis indicates that the supply count has decremented meaning a card has been taken out:\n");
+        4:   75:    printf("\t\tExpected: %d, result: %d\n", supplyCounter - 1, supplyCount(gardens, &state));
+        4:   76:    asserttrue(supplyCount(gardens, &state), supplyCounter - 1);
+        -:   77:
+        -:   78:    // Check hand and check that it was removed from supply
+        4:   79:    printf("Testing gainCard() to hand:\n");
+        4:   80:    initialCount = state.handCount[p];
+        4:   81:    supplyCounter = supplyCount(baron, &state);
+        4:   82:    successFlag = gainCard(baron, &state, 2, p);
+        4:   83:    printf("\tThis indicates that the function returned a correct value for success:\n");
+        4:   84:    asserttrue(successFlag, 0);
+        4:   85:    printf("\tThis indicates that the supply card was found in the hand:\n");
+        4:   86:    printf("\t\tExpected: %d, result: %d\n", baron, state.hand[p][initialCount]);
+        4:   87:    asserttrue(state.hand[p][initialCount], baron);
+        4:   88:    printf("\tThis indicates that the supply count has decremented meaning a card has been taken out:\n");
+        4:   89:    printf("\t\tExpected: %d, result: %d\n", supplyCounter - 1, supplyCount(baron, &state));
+        4:   90:    asserttrue(supplyCount(baron, &state), supplyCounter - 1);
+        -:   91:
+        -:   92:    // Check what happens during invalid value (supply is out or name is wrong)
+        4:   93:    successFlag = gainCard(-1000, &state, 0, p);
+        4:   94:    printf("\tThis indicates that the function handled an error situation *invalid value*:\n");
+        4:   95:    asserttrue(successFlag, -1); // testing invalid value
+        4:   96:    state.supplyCount[baron] = 0;
+        4:   97:    successFlag = gainCard(baron, &state, 0, p);
+        4:   98:    printf("\tThis indicates that the function handled and error situation *empty supply pile*:\n");
+        4:   99:    asserttrue(successFlag, -1); // testing a supply pile that should be empty.
+        4:  100:  }
+        -:  101:
+        -:  102:
+        -:  103:
+        1:  104:  if (totalFail == 0)
+        -:  105:  {
+        1:  106:    printf("FINAL RESULT: All tests passed\n");
+        1:  107:  }
+        -:  108:  else
+        -:  109:  {
+    #####:  110:    printf("FINAL RESULT: %d FAILURES\n", totalFail);
+        -:  111:  }
+        1:  112:  return 0;
+        -:  113:}
