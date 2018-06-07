@@ -26,22 +26,22 @@ public class UrlValidatorTest extends TestCase {
         UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
         System.out.println("Testing Manually: ");
         urlparts createdURL = new urlparts("", true); // default value true, will set false inside logic
-        for (urlparts i:scheme) {
-            for (urlparts j:authority) {
-                for (urlparts k:port) {
-                    for (urlparts l:path) {
-                        for (urlparts m:query) {
+        for (urlparts scheme:scheme) {
+            for (urlparts authority:authority) {
+                for (urlparts port:port) {
+                    for (urlparts path:path) {
+                        for (urlparts query:query) {
                             // Non-optional parts
-                            if (!i.value || !j.value) {
+                            if (!scheme.value || !authority.value) {
                                 createdURL.value = false;
                             }
                             // optional url parts
                             else {
-                                if (!l.value || !m.value || !k.value) {
+                                if (!port.value || !path.value || !query.value) {
                                     createdURL.value = false;
                                 }
                             }
-                            createdURL.part = i.part + j.part + k.part + l.part + m.part;
+                            createdURL.part = scheme.part + authority.part + port.part + path.part + query.part;
                             try {
                                 if (createdURL.value) {
                                     assertTrue(urlVal.isValid(createdURL.part));
@@ -90,6 +90,7 @@ public class UrlValidatorTest extends TestCase {
 
     urlparts[] scheme = {
             new urlparts("https://", true),
+            new urlparts("http://", true),
             new urlparts("u6p:/", false)
     };
     urlparts[] authority = {
@@ -104,9 +105,10 @@ public class UrlValidatorTest extends TestCase {
     urlparts[] path = {
             new urlparts("", true),
             new urlparts("/", true),
-            new urlparts("/#/", false)
+            new urlparts("/#", false)
     };
     urlparts[] query = {
-            new urlparts("?Hello=new", true)
+            new urlparts("?Hello=new", true),
+            new urlparts("", true)
     };
 }
