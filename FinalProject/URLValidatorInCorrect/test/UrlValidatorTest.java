@@ -49,8 +49,9 @@ public class UrlValidatorTest extends TestCase {
                                     assertFalse(urlVal.isValid(createdURL.part));
                                 }
                             } catch (Throwable t) {
-                                System.out.println(createdURL.part + " failed");
-
+                                System.out.println(createdURL.part + " assertion failed");
+                                System.out.println("Expected: " + createdURL.value);
+                                System.out.println("Result: path: " + scheme.value + " | authority: " + authority.value + " | port: " + port.value + " | path: " + path.value + " | query: " + query.value);
                             }
                         }
                     }
