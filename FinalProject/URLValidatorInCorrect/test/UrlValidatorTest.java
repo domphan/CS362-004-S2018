@@ -37,8 +37,11 @@ public class UrlValidatorTest extends TestCase {
                             }
                             // optional url parts
                             else {
+                                createdURL.value = true;
                                 if (!port.value || !path.value || !query.value) {
                                     createdURL.value = false;
+                                } else {
+                                    createdURL.value = true;
                                 }
                             }
                             createdURL.part = scheme.part + authority.part + port.part + path.part + query.part;
@@ -96,7 +99,7 @@ public class UrlValidatorTest extends TestCase {
     };
     urlparts[] authority = {
             new urlparts("www.google.com", true),
-            new urlparts("c", false)
+            new urlparts("qmq.qeo,qe.qe", false)
     };
     urlparts[] port = {
             new urlparts("", true),
@@ -105,11 +108,11 @@ public class UrlValidatorTest extends TestCase {
     };
     urlparts[] path = {
             new urlparts("", true),
-            new urlparts("/", true),
-            new urlparts("/#", false)
+//            new urlparts("/hello/", true),
+//            new urlparts("/#", false)
     };
     urlparts[] query = {
-            new urlparts("?Hello=new", true),
+//            new urlparts("?Hello=new", true),
             new urlparts("", true)
     };
 }

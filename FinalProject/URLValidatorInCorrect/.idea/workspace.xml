@@ -15,8 +15,8 @@
       <file leaf-file-name="UrlValidatorTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/UrlValidatorTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="55" column="25" lean-forward="true" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="25" />
+            <state relative-caret-position="277">
+              <caret line="43" column="60" selection-start-line="43" selection-start-column="60" selection-end-line="43" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -192,24 +192,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 16h 06m 07s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 16h 06m 35s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 16h 08m 16s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 01m 12s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 02m 20s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 02m 35s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 05m 07s.xml">
       <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
     </history-entry>
@@ -220,6 +202,24 @@
       <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 06m 45s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 22m 44s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 30m 10s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 33m 17s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 36m 41s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 37m 36s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 38m 40s.xml">
       <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -423,8 +423,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/UrlValidatorTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="55" column="25" lean-forward="true" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="25" />
+        <state relative-caret-position="277">
+          <caret line="43" column="60" selection-start-line="43" selection-start-column="60" selection-end-line="43" selection-end-column="60" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
