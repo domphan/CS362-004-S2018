@@ -51,7 +51,7 @@ public class UrlValidatorTest extends TestCase {
                             } catch (Throwable t) {
                                 System.out.println(createdURL.part + " assertion failed");
                                 System.out.println("Expected: " + createdURL.value);
-                                System.out.println("Result: path: " + scheme.value + " | authority: " + authority.value + " | port: " + port.value + " | path: " + path.value + " | query: " + query.value);
+                                System.out.println("Result: scheme: " + scheme.value + " | authority: " + authority.value + " | port: " + port.value + " | path: " + path.value + " | query: " + query.value + "\n");
                             }
                         }
                     }
@@ -96,7 +96,7 @@ public class UrlValidatorTest extends TestCase {
     };
     urlparts[] authority = {
             new urlparts("www.google.com", true),
-            new urlparts("www.c", false)
+            new urlparts("c", false)
     };
     urlparts[] port = {
             new urlparts("", true),

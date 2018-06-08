@@ -15,8 +15,8 @@
       <file leaf-file-name="UrlValidatorTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/UrlValidatorTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="53" column="178" selection-start-line="53" selection-start-column="178" selection-end-line="53" selection-end-column="178" />
+            <state relative-caret-position="237">
+              <caret line="55" column="25" lean-forward="true" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -192,34 +192,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 15h 31m 32s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 15h 32m 04s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 15h 32m 47s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 15h 33m 09s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 15h 35m 05s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 15h 59m 25s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 16h 04m 01s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 16h 04m 43s.xml">
-      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 16h 06m 07s.xml">
       <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 16h 06m 35s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 16h 08m 16s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 01m 12s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 02m 20s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 02m 35s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 05m 07s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 06m 06s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 06m 27s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.07 at 19h 06m 45s.xml">
       <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -423,8 +423,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/UrlValidatorTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="53" column="178" selection-start-line="53" selection-start-column="178" selection-end-line="53" selection-end-column="178" />
+        <state relative-caret-position="237">
+          <caret line="55" column="25" lean-forward="true" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
