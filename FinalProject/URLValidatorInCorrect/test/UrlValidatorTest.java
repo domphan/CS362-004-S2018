@@ -25,6 +25,23 @@ public class UrlValidatorTest extends TestCase {
 //You can use this function to implement your manual testing
         UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
         System.out.println("Testing Manually: ");
+    }
+
+    // First partition will be valid URLs
+    public void testYourFirstPartition() {
+        //You can use this function to implement your First Partition testing
+
+    }
+    // second partition will be invalid URLs
+    public void testYourSecondPartition() {
+        //You can use this function to implement your Second Partition testing
+
+    }
+    //You need to create more test cases for your Partitions if you need to
+
+    public void testIsValid() {
+        //You can use this function for programming based testing
+        UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
         urlparts createdURL = new urlparts("", true); // default value true, will set false inside logic
         for (urlparts scheme:scheme) {
             for (urlparts authority:authority) {
@@ -54,7 +71,8 @@ public class UrlValidatorTest extends TestCase {
                             } catch (Throwable t) {
                                 System.out.println(createdURL.part + " assertion failed");
                                 System.out.println("Expected: " + createdURL.value);
-                                System.out.println("Result: scheme: " + scheme.value + " | authority: " + authority.value + " | port: " + port.value + " | path: " + path.value + " | query: " + query.value + "\n");
+                                System.out.println("Result: " + !createdURL.value);
+                                System.out.println("Input: scheme: " + scheme.value + " | authority: " + authority.value + " | port: " + port.value + " | path: " + path.value + " | query: " + query.value + "\n");
                             }
                         }
                     }
@@ -63,26 +81,6 @@ public class UrlValidatorTest extends TestCase {
         }
 
 
-
-
-
-    }
-
-    // First partition will be valid URLs
-    public void testYourFirstPartition() {
-        //You can use this function to implement your First Partition testing
-
-    }
-    // second partition will be invalid URLs
-    public void testYourSecondPartition() {
-        //You can use this function to implement your Second Partition testing
-
-    }
-    //You need to create more test cases for your Partitions if you need to
-
-    public void testIsValid() {
-        //You can use this function for programming based testing
-
     }
 
 
@@ -90,6 +88,7 @@ public class UrlValidatorTest extends TestCase {
 
         UrlValidatorTest fct = new UrlValidatorTest("url test");
         fct.testManualTest();
+        fct.testIsValid();
     }
 
     urlparts[] scheme = {
@@ -99,7 +98,7 @@ public class UrlValidatorTest extends TestCase {
     };
     urlparts[] authority = {
             new urlparts("www.google.com", true),
-            new urlparts("qmq.qeo,qe.qe", false)
+            new urlparts("~!@@2@.", false)
     };
     urlparts[] port = {
             new urlparts("", true),
@@ -108,11 +107,11 @@ public class UrlValidatorTest extends TestCase {
     };
     urlparts[] path = {
             new urlparts("", true),
-//            new urlparts("/hello/", true),
-//            new urlparts("/#", false)
+            new urlparts("/hello/", true),
+            new urlparts("/]", false)
     };
     urlparts[] query = {
-//            new urlparts("?Hello=new", true),
+            new urlparts("?Hello=new", true),
             new urlparts("", true)
     };
 }
