@@ -15,8 +15,8 @@
       <file leaf-file-name="UrlValidator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/UrlValidator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="111" column="52" selection-start-line="111" selection-start-column="52" selection-end-line="111" selection-end-column="52" />
+            <state relative-caret-position="117">
+              <caret line="326" selection-start-line="326" selection-end-line="326" />
             </state>
           </provider>
         </entry>
@@ -24,11 +24,11 @@
       <file leaf-file-name="UrlValidatorTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/UrlValidatorTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="164" lean-forward="true" selection-start-line="164" selection-end-line="164" />
+            <state relative-caret-position="193">
+              <caret line="29" column="67" selection-start-line="29" selection-start-column="67" selection-end-line="29" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
+                <marker date="1528747833787" expanded="true" signature="10970:11014" ph="..." />
               </folding>
             </state>
           </provider>
@@ -92,7 +92,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.UrlValidatorTest">
+  <component name="RunManager" selected="JUnit.UrlValidatorTest.testManualTest">
     <configuration name="UrlValidatorTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="UrlValidatorTest" />
       <module name="URLValidatorInCorrect" />
@@ -135,13 +135,13 @@
       </option>
       <patterns />
     </configuration>
-    <configuration name="UrlValidatorTest.testPort" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UrlValidatorTest.testQuery" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="URLValidatorInCorrect" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="UrlValidatorTest" />
-      <option name="METHOD_NAME" value="testPort" />
+      <option name="METHOD_NAME" value="testQuery" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -152,13 +152,13 @@
       </option>
       <patterns />
     </configuration>
-    <configuration name="UrlValidatorTest.testQuery" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UrlValidatorTest.testScheme" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="URLValidatorInCorrect" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="UrlValidatorTest" />
-      <option name="METHOD_NAME" value="testQuery" />
+      <option name="METHOD_NAME" value="testScheme" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -208,19 +208,19 @@
       <listeners />
     </configuration>
     <list>
-      <item itemvalue="JUnit.UrlValidatorTest.testPort" />
       <item itemvalue="JUnit.UrlValidatorTest.testPath" />
       <item itemvalue="JUnit.UrlValidatorTest.testManualTest" />
       <item itemvalue="JUnit.UrlValidatorTest.testQuery" />
       <item itemvalue="Application.UrlValidatorTest" />
+      <item itemvalue="JUnit.UrlValidatorTest.testScheme" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.UrlValidatorTest" />
-        <item itemvalue="JUnit.UrlValidatorTest.testQuery" />
         <item itemvalue="JUnit.UrlValidatorTest.testManualTest" />
+        <item itemvalue="Application.UrlValidatorTest" />
+        <item itemvalue="JUnit.UrlValidatorTest.testScheme" />
+        <item itemvalue="JUnit.UrlValidatorTest.testQuery" />
         <item itemvalue="JUnit.UrlValidatorTest.testPath" />
-        <item itemvalue="JUnit.UrlValidatorTest.testPort" />
       </list>
     </recent_temporary>
   </component>
@@ -238,35 +238,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UrlValidatorTest_testAuthority - 2018.06.10 at 19h 00m 12s.xml">
-      <configuration name="UrlValidatorTest.testAuthority" configurationId="JUnit" />
+    <history-entry file="UrlValidatorTest_testScheme - 2018.06.11 at 12h 27m 24s.xml">
+      <configuration name="UrlValidatorTest.testScheme" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UrlValidatorTest_testAuthority - 2018.06.10 at 19h 00m 32s.xml">
-      <configuration name="UrlValidatorTest.testAuthority" configurationId="JUnit" />
+    <history-entry file="UrlValidatorTest_testScheme - 2018.06.11 at 12h 27m 34s.xml">
+      <configuration name="UrlValidatorTest.testScheme" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UrlValidatorTest_testPort - 2018.06.10 at 19h 01m 36s.xml">
-      <configuration name="UrlValidatorTest.testPort" configurationId="JUnit" />
+    <history-entry file="UrlValidatorTest_testScheme - 2018.06.11 at 12h 27m 57s.xml">
+      <configuration name="UrlValidatorTest.testScheme" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UrlValidatorTest_testPort - 2018.06.10 at 19h 01m 59s.xml">
-      <configuration name="UrlValidatorTest.testPort" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testPort - 2018.06.10 at 19h 02m 23s.xml">
-      <configuration name="UrlValidatorTest.testPort" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testPath - 2018.06.10 at 19h 03m 24s.xml">
-      <configuration name="UrlValidatorTest.testPath" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.10 at 19h 04m 54s.xml">
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.11 at 12h 28m 02s.xml">
       <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UrlValidatorTest_testQuery - 2018.06.10 at 19h 05m 54s.xml">
-      <configuration name="UrlValidatorTest.testQuery" configurationId="JUnit" />
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.11 at 12h 28m 55s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UrlValidatorTest_testQuery - 2018.06.10 at 19h 06m 37s.xml">
-      <configuration name="UrlValidatorTest.testQuery" configurationId="JUnit" />
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.11 at 12h 29m 33s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UrlValidatorTest_testQuery - 2018.06.10 at 19h 06m 44s.xml">
-      <configuration name="UrlValidatorTest.testQuery" configurationId="JUnit" />
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.11 at 12h 30m 50s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.11 at 12h 31m 55s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.11 at 12h 32m 06s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UrlValidatorTest_testManualTest - 2018.06.11 at 12h 58m 02s.xml">
+      <configuration name="UrlValidatorTest.testManualTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -306,7 +306,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="10" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -323,7 +323,7 @@
           <caret line="89" column="8" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
+            <marker date="1528747833787" expanded="true" signature="10970:11014" ph="..." />
           </folding>
         </state>
       </provider>
@@ -341,7 +341,7 @@
           <caret line="28" column="49" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
+            <marker date="1528747833787" expanded="true" signature="10970:11014" ph="..." />
           </folding>
         </state>
       </provider>
@@ -366,7 +366,7 @@
           <caret line="31" column="56" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
+            <marker date="1528747833787" expanded="true" signature="10970:11014" ph="..." />
           </folding>
         </state>
       </provider>
@@ -391,7 +391,7 @@
           <caret line="25" column="58" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
+            <marker date="1528747833787" expanded="true" signature="10970:11014" ph="..." />
           </folding>
         </state>
       </provider>
@@ -416,7 +416,7 @@
           <caret line="40" column="5" lean-forward="true" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
+            <marker date="1528747833787" expanded="true" signature="10970:11014" ph="..." />
           </folding>
         </state>
       </provider>
@@ -439,18 +439,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="117">
           <caret line="95" selection-start-line="95" selection-end-line="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RegexValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="82" selection-start-line="82" selection-end-line="82" />
-          <folding>
-            <element signature="e#2817#2818#0" expanded="true" />
-            <element signature="e#3238#3239#0" expanded="true" />
-            <element signature="e#3295#3296#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -496,20 +484,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/RegexValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="120" selection-start-line="120" selection-end-line="120" />
+          <folding>
+            <element signature="e#2784#2785#0" expanded="true" />
+            <element signature="e#2817#2818#0" expanded="true" />
+            <element signature="e#3238#3239#0" expanded="true" />
+            <element signature="e#3295#3296#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/UrlValidator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="111" column="52" selection-start-line="111" selection-start-column="52" selection-end-line="111" selection-end-column="52" />
+        <state relative-caret-position="117">
+          <caret line="326" selection-start-line="326" selection-end-line="326" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/UrlValidatorTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="164" lean-forward="true" selection-start-line="164" selection-end-line="164" />
+        <state relative-caret-position="193">
+          <caret line="29" column="67" selection-start-line="29" selection-start-column="67" selection-end-line="29" selection-end-column="67" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
+            <marker date="1528747833787" expanded="true" signature="10970:11014" ph="..." />
           </folding>
         </state>
       </provider>

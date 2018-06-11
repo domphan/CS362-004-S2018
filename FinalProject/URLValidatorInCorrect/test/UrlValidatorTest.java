@@ -4,7 +4,6 @@ import junit.framework.TestCase;
 import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
 
-import static org.hamcrest.core.IsEqual.equalTo;
 
 
 //You can use this as a skeleton for your 3 different test approach
@@ -25,6 +24,10 @@ public class UrlValidatorTest extends TestCase {
 //You can use this function to implement your manual testing
         UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
         System.out.println("Testing Manually: ");
+        //System.out.println(urlVal.isValid("https://www.google.com")); // When this is run, there's a regex validation error. (regex missing exception)
+        System.out.println(urlVal.isValid("http://www.amazon.com"));
+        System.out.println(urlVal.isValid("http://~!@@2@."));
+        System.out.println(urlVal.isValid("http://www.google.com:81"));
         System.out.println(urlVal.isValid("http://www.google.com/hello/"));
     }
 
