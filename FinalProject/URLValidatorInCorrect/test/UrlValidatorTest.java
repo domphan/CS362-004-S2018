@@ -47,7 +47,7 @@ public class UrlValidatorTest extends TestCase {
                     assertFalse(urlVal.isValid(createdURL.part));
                 }
             } catch (Throwable t) {
-                System.out.println(createdURL.part + " assertion failed");
+                System.out.println("===== assertion failed =====\n" + createdURL.part);
                 System.out.println("Expected: " + createdURL.value);
                 System.out.println("Result: " + !createdURL.value);
                 System.out.println("Input: scheme: " + scheme.value + " | authority: " + authority[0].value + " | port: " + port[0].value + " | path: " + path[0].value + " | query: " + query[0].value + "\n");
@@ -75,7 +75,7 @@ public class UrlValidatorTest extends TestCase {
                     assertFalse(urlVal.isValid(createdURL.part));
                 }
             } catch (Throwable t) {
-                System.out.println(createdURL.part + " assertion failed");
+                System.out.println("===== assertion failed =====\n" + createdURL.part);
                 System.out.println("Expected: " + createdURL.value);
                 System.out.println("Result: " + !createdURL.value);
                 System.out.println("Input: scheme: " + scheme[0].value + " | authority: " + authority.value + " | port: " + port[0].value + " | path: " + path[0].value + " | query: " + query[0].value + "\n");
@@ -102,7 +102,7 @@ public class UrlValidatorTest extends TestCase {
                     assertFalse(urlVal.isValid(createdURL.part));
                 }
             } catch (Throwable t) {
-                System.out.println(createdURL.part + " assertion failed");
+                System.out.println("===== assertion failed =====\n" + createdURL.part);
                 System.out.println("Expected: " + createdURL.value);
                 System.out.println("Result: " + !createdURL.value);
                 System.out.println("Input: scheme: " + scheme[0].value + " | authority: " + authority[0].value + " | port: " + port.value + " | path: " + path[0].value + " | query: " + query[0].value + "\n");
@@ -128,7 +128,7 @@ public class UrlValidatorTest extends TestCase {
                     assertFalse(urlVal.isValid(createdURL.part));
                 }
             } catch (Throwable t) {
-                System.out.println(createdURL.part + " assertion failed");
+                System.out.println("===== assertion failed =====\n" + createdURL.part);
                 System.out.println("Expected: " + createdURL.value);
                 System.out.println("Result: " + !createdURL.value);
                 System.out.println("Input: scheme: " + scheme[0].value + " | authority: " + authority[0].value + " | port: " + port[0].value + " | path: " + path.value + " | query: " + query[0].value + "\n");
@@ -154,7 +154,7 @@ public class UrlValidatorTest extends TestCase {
                     assertFalse(urlVal.isValid(createdURL.part));
                 }
             } catch (Throwable t) {
-                System.out.println(createdURL.part + " assertion failed");
+                System.out.println("===== assertion failed =====\n" + createdURL.part);
                 System.out.println("Expected: " + createdURL.value);
                 System.out.println("Result: " + !createdURL.value);
                 System.out.println("Input: scheme: " + scheme[0].value + " | authority: " + authority[0].value + " | port: " + port[0].value + " | path: " + path[0].value + " | query: " + query.value + "\n");

@@ -24,11 +24,11 @@
       <file leaf-file-name="UrlValidatorTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/UrlValidatorTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="218" column="20" selection-start-line="218" selection-start-column="20" selection-end-line="218" selection-end-column="20" />
+            <state relative-caret-position="210">
+              <caret line="164" lean-forward="true" selection-start-line="164" selection-end-line="164" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1528682848372" expanded="true" signature="10598:10642" ph="..." />
+                <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
               </folding>
             </state>
           </provider>
@@ -306,16 +306,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/test/UrlValidatorTest.java</url>
-          <line>59</line>
-          <properties class="UrlValidatorTest" method="testAuthority">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="7" />
     </breakpoint-manager>
   </component>
@@ -333,7 +323,7 @@
           <caret line="89" column="8" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1528682848372" expanded="true" signature="10598:10642" ph="..." />
+            <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
           </folding>
         </state>
       </provider>
@@ -351,7 +341,7 @@
           <caret line="28" column="49" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1528682848372" expanded="true" signature="10598:10642" ph="..." />
+            <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
           </folding>
         </state>
       </provider>
@@ -376,7 +366,7 @@
           <caret line="31" column="56" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1528682848372" expanded="true" signature="10598:10642" ph="..." />
+            <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
           </folding>
         </state>
       </provider>
@@ -401,7 +391,7 @@
           <caret line="25" column="58" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1528682848372" expanded="true" signature="10598:10642" ph="..." />
+            <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
           </folding>
         </state>
       </provider>
@@ -426,7 +416,7 @@
           <caret line="40" column="5" lean-forward="true" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1528682848372" expanded="true" signature="10598:10642" ph="..." />
+            <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
           </folding>
         </state>
       </provider>
@@ -515,11 +505,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/UrlValidatorTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="218" column="20" selection-start-line="218" selection-start-column="20" selection-end-line="218" selection-end-column="20" />
+        <state relative-caret-position="210">
+          <caret line="164" lean-forward="true" selection-start-line="164" selection-end-line="164" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1528682848372" expanded="true" signature="10598:10642" ph="..." />
+            <marker date="1528685124225" expanded="true" signature="10663:10707" ph="..." />
           </folding>
         </state>
       </provider>
