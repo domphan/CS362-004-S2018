@@ -345,7 +345,7 @@ public class UrlValidator implements Serializable {
         }
 
         if (!isValidFragment(urlMatcher.group(PARSE_URL_FRAGMENT))) {
-            System.out.println("fragment doesn't match");
+            //System.out.println("fragment doesn't match");
             return false;
         }
 
