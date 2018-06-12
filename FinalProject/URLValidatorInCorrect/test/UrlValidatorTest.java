@@ -25,10 +25,13 @@ public class UrlValidatorTest extends TestCase {
         UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
         System.out.println("Testing Manually: ");
         //System.out.println(urlVal.isValid("https://www.google.com")); // When this is run, there's a regex validation error. (regex missing exception)
-        System.out.println(urlVal.isValid("http://www.amazon.com"));
-        System.out.println(urlVal.isValid("http://~!@@2@."));
-        System.out.println(urlVal.isValid("http://www.google.com:81"));
-        System.out.println(urlVal.isValid("http://www.google.com/hello/"));
+        System.out.println(urlVal.isValid("info://www.amazon.com"));
+//        System.out.println(urlVal.isValid("http://~!@@2@."));
+//        System.out.println(urlVal.isValid("http://www.google.com:81"));
+//        System.out.println(urlVal.isValid("http://www.google.com/hello/"));
+        System.out.println(urlVal.isValid("https://www.google.com"));
+   //     System.out.println(urlVal.isValid("http://www.amazon.com:81"));
+     //   System.out.println(urlVal.isValid("http://www.amazon.com/hello/"));
     }
 
 
@@ -225,22 +228,27 @@ public class UrlValidatorTest extends TestCase {
 
     urlparts[] scheme = {
             new urlparts("http://", true),
+            new urlparts("u3p:/", false),
             new urlparts("https://", true),
-            new urlparts("u6p:/", false)
+            new urlparts("mailto:", true)
+
     };
     urlparts[] authority = {
             new urlparts("www.google.com", true),
-            new urlparts("~!@@2@.", false)
+            new urlparts("~!@@2@.", false),
+            new urlparts("128.0.0.1", true)
     };
     urlparts[] port = {
             new urlparts("", true),
-            new urlparts(":80", true),
-            new urlparts(":-2", false)
+            new urlparts(":-2", false),
+            new urlparts(":81", true),
+            new urlparts(":65536", false)
     };
     urlparts[] path = {
             new urlparts("", true),
-            new urlparts("/hello/", true),
-            new urlparts("/]", false)
+            new urlparts("/]", false),
+            new urlparts("/hello/", true)
+
     };
     urlparts[] query = {
             new urlparts("", true),

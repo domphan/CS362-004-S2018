@@ -305,19 +305,23 @@ public class UrlValidator implements Serializable {
         // Check the whole url address structure
         Matcher urlMatcher = URL_PATTERN.matcher(value);
         if (!urlMatcher.matches()) {
+//            System.out.println("url pattern doesn't match");
             return false;
         }
 
         String scheme = urlMatcher.group(PARSE_URL_SCHEME);
         if (!isValidScheme(scheme)) {
+//            System.out.println("scheme doesn't match");
             return false;
         }
 
         String authority = urlMatcher.group(PARSE_URL_AUTHORITY);
+        System.out.println("This is the authority: " + authority);
 
         if ("http".equals(scheme)) {// Special case - file: allows an empty authority
             if (authority != null) {
                 if (authority.contains(":")) { // but cannot allow trailing :
+//                    System.out.println("authority contains :");
                     return false;
                 }
             }
@@ -325,19 +329,23 @@ public class UrlValidator implements Serializable {
         } else { // not file:
             // Validate the authority
             if (!isValidAuthority(authority)) {
+//                System.out.println("authority doesn't match");
                 return false;
             }
         }
 
         if (!isValidPath(urlMatcher.group(PARSE_URL_PATH))) {
+//            System.out.println("path doesn't match");
             return false;
         }
 
         if (!isValidQuery(urlMatcher.group(PARSE_URL_QUERY))) {
+//            System.out.println("query doesn't match");
             return false;
         }
 
         if (!isValidFragment(urlMatcher.group(PARSE_URL_FRAGMENT))) {
+            System.out.println("fragment doesn't match");
             return false;
         }
 
@@ -390,7 +398,9 @@ public class UrlValidator implements Serializable {
             return true;
         }
         // convert to ASCII if possible
+        System.out.println("trying to convert to ASCII");
         final String authorityASCII = DomainValidator.unicodeToASCII(authority);
+        System.out.println("Success: trying to convert to ASCII");
 
         Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authorityASCII);
         if (!authorityMatcher.matches()) {

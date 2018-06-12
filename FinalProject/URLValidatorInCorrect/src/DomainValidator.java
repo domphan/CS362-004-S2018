@@ -1996,6 +1996,7 @@ public class DomainValidator implements Serializable {
      */
     // Needed by UrlValidator
     static String unicodeToASCII(String input) {
+        System.out.println("trying to convert to ASCII");
         if (isOnlyASCII(input)) { // skip possibly expensive processing
             return input;
         }
